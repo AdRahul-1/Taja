@@ -41,6 +41,7 @@ function DrawerComp({
 										src={item.url}
 										alt={item.title}
 										width={200}
+										priority
 										height={200}
 										className={`w-full h-full object-contain ${
 											selected === index && "image-shadow"

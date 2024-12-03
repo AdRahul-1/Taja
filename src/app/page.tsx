@@ -1,6 +1,6 @@
 "use client";
 import { mainImage } from "@/constants";
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import Footer from "./components/layout/Footer";
 import LocomotiveScroll from "locomotive-scroll";
 import Displayitems from "./components/Displayitems";
@@ -11,12 +11,30 @@ import Image from "next/image";
 
 function Home() {
 	const selectedImage = mainImage[Math.floor(Math.random() * mainImage.length)];
+	const [isLocoEnabled, setIsLocoEnabled] = useState(window.innerWidth >= 768);
+
 	useEffect(() => {
-		const loco = new LocomotiveScroll();
-		return () => {
-			loco.destroy();
-		};
+	  const handleResize = () => {
+		const shouldEnableLoco = window.innerWidth >= 768;
+		setIsLocoEnabled(shouldEnableLoco);
+	  };
+  
+	  window.addEventListener('resize', handleResize);
+  
+	  return () => {
+		window.removeEventListener('resize', handleResize);
+	  };
 	}, []);
+  
+	useEffect(() => {
+	  if (!isLocoEnabled) {
+		return;
+	  }
+	  const loco = new LocomotiveScroll();
+	  return () => {
+		loco.destroy();
+	  };
+	}, [isLocoEnabled]);
 
 	return (
 		<main
@@ -28,7 +46,7 @@ function Home() {
 				height={500}
 				width={500}
 				alt="rr"
-				className="w-8 xl:w-44 h-8 xl:h-44 drop-shadow-lg fixed top-4 left-4 z-50"
+				className="w-24 xl:w-44 h-24 xl:h-44 drop-shadow-lg fixed top-0 left-4 z-50"
 			></Image>
 				<Image
 						src={"/rr_logo.png"}

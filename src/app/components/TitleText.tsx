@@ -14,17 +14,17 @@ function TitleText() {
 			opacity: 0,
 			y: -100,
 			ease: "expo.out",
-			delay:.3
+			delay: 0.3,
 		});
 		t1.from(p.current, { opacity: 0, y: "100%", ease: "expo.out" });
 	}, []);
 	return (
-		<div className=" xl:w-1/3 translate-y-[30%] text-center lg:text-left mt-20 lg:mt-0 z-20">
+		<div className="translate-y-[30%] text-center lg:text-left mt-20 lg:mt-0 z-20">
 			<h1
 				className={`text-6xl font-medium ${kalnia.className} leading-none stoke-text`}
 				ref={h2}
 			>
-				Your evening partner
+				Your evening <br /> partner
 			</h1>
 			<p className="text-xl md:text-2xl mt-1 lg:mt-5" ref={p}>
 				Now more crispier
