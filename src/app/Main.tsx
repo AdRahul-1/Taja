@@ -10,10 +10,26 @@ function Main({ children }: { children: React.ReactNode }) {
     }
 
     const disableRightClick = (e: MouseEvent) => e.preventDefault();
-    document.addEventListener("contextmenu", disableRightClick);
+    let touchTimer: NodeJS.Timeout | null = null;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchTimer = setTimeout(() => {
+        e.preventDefault();
+      }, 500);
+    };
 
+    const handleTouchEnd = () => {
+      if (touchTimer) {
+        clearTimeout(touchTimer);
+        touchTimer = null;
+      }
+    };
+    document.addEventListener("contextmenu", disableRightClick);
+    document.addEventListener("touchstart", handleTouchStart);
+    document.addEventListener("touchend", handleTouchEnd);
     return () => {
       document.removeEventListener("contextmenu", disableRightClick);
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("touchend", handleTouchEnd);
     };
   }, []);
 
