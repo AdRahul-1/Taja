@@ -63,8 +63,8 @@ function Home() {
 					<Displayitems />
 				</div>
 			</section>
-			<section className="flex pt-44 lg:pt-20 relative items-center lg:flex-row flex-col-reverse gap-5 h-fit ">
-				<div className="w-[90%] md:h-[40dvh] lg:h-[80dvh] lg:w-1/2">
+			<section className="flex pt-10 lg:pt-20 relative  lg:items-center lg:flex-row flex-col-reverse gap-5 h-fit">
+				<div className="w-[90%] md:h-[40dvh] lg:h-[80dvh] lg:w-1/2 m-auto lg:m-0">
 					<Image
 						src={"/Chira.webp"}
 						alt="Charaimge"

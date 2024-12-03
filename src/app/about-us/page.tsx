@@ -18,7 +18,7 @@ function AboutUs() {
 					{/* Image */}
 					<div>
 						<Image
-							src="/"
+							src="/ABOUT.webp"
 							alt="Tea Time Snacks"
 							className="rounded-lg shadow-md"
 							width={500}

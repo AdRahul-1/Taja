@@ -13,7 +13,7 @@ function ContactUs() {
 				</p>
 				<form
 					className="space-y-4"
-					action={`https://formsubmit.co/116ea96afc04d4451a070f0c6f9b150e`}
+					action={`https://formsubmit.co/c8be25bfb9d04f34d244c1d7a571ecf3`}
                     method="POST"
 				>
 					{/* Name */}
