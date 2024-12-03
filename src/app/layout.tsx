@@ -30,6 +30,20 @@ export const metadata: Metadata = {
 		"buy chanachur online",
 		"delicious chanachur",
 		"crispy Indian snacks",
+		"rrfoodproducts",
+		"rrfood",
+		"tajachanachur",
+		"newtaja",
+		"newtajachanachur",
+		"taja",
+		"tajachanachur",
+		"tajachanachur",
+		"rr foods",
+		"rr food products",
+		"rr food products raniganj",
+		"rr food products raniganj west bengal",
+		"taja chanachur",
+
 	],
 	openGraph: {
 		title:
