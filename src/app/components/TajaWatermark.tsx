@@ -2,11 +2,14 @@ import React, { memo,use,useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Jockey_One } from "next/font/google";
+
+import {useAnimationStore} from "@/store/Animations"
 const jockeyOne = Jockey_One({ subsets: ["latin"], weight: "400" });
 function TajaWatermark() {
+    const store=useAnimationStore()
     const div = useRef<HTMLDivElement>(null);
     useGSAP(() => {
-        if (!div.current) {
+        if (!div.current||store.animations) {
             return;
         }
         gsap.from(div.current.children, {

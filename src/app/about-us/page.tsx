@@ -4,7 +4,7 @@ import React from "react";
 
 function AboutUs() {
 	return (
-		<div className="min-h-screen bg-gray-50 py-10 px-6 mt-4">
+		<div className="min-h-screen bg-gray-50 py-14 px-6">
 			<div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
 				<h1 className="text-4xl font-bold text-gray-800 text-center mb-4">
 					About Us

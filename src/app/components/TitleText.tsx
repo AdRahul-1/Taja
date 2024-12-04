@@ -4,11 +4,16 @@ import gsap from "gsap";
 import { Kalnia } from "next/font/google";
 const kalnia = Kalnia({ subsets: ["latin"] });
 
+import {useAnimationStore} from "@/store/Animations"
 function TitleText() {
+	const store=useAnimationStore()
 	const h2 = useRef<HTMLHeadingElement>(null);
 	const p = useRef<HTMLHeadingElement>(null);
 	useGSAP(() => {
 		const t1 = gsap.timeline();
+		if (store.animations) {
+			return
+		}
 		t1.from(h2.current, {
 			duration: 0.7,
 			opacity: 0,

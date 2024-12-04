@@ -5,14 +5,17 @@ import React, { memo, useRef } from "react";
 import DrawerComp from "./DrawerComp";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import {useAnimationStore} from "@/store/Animations"
 function getRandomRotation() {
 	return Math.floor(Math.random() * 13) - 6;
 }
 function Displayitems() {
 	const div = useRef<HTMLDivElement>(null);
+	const store=useAnimationStore()
 	useGSAP(() => {
 		const el = div.current?.children;
-		if (!el) return;
+		console.log(store.animations)
+		if (!el||store.animations) return;
 		gsap.from(el, {
 			y: 100,
 			delay: 1,
@@ -22,6 +25,9 @@ function Displayitems() {
 			stagger: {
 				from: "end",
 				each: 0.2,
+			},
+			onComplete: () => {
+				store.setAnimation(); 
 			},
 		});
 	}, []);

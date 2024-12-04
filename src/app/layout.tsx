@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "./components/layout/Navbar";
 import { Kalnia, Jockey_One, Inria_Sans } from "next/font/google";
 import Main from "./Main";
 
@@ -27,12 +26,12 @@ export const metadata: Metadata = {
 		"authentic chanachur",
 		"crispy snacks",
 		"snacks from West Bengal",
-		"buy chanachur online",
 		"delicious chanachur",
 		"crispy Indian snacks",
 		"rrfoodproducts",
 		"rrfood",
 		"tajachanachur",
+		"taja chanachur raniganj",
 		"newtaja",
 		"newtajachanachur",
 		"taja",
@@ -50,11 +49,11 @@ export const metadata: Metadata = {
 			"R.R. Food Products | Delicious Chanachur & Tea Time Snacks from Raniganj, West Bengal",
 		description:
 			"Craving the perfect snack? R.R. Food Products from Raniganj, West Bengal offers the best crispy chanachur and other delicious tea-time snacks. Order online now for the authentic taste of happiness!",
-		url: "https://www.rrfoodproducts.com", // Replace with your actual site URL
+		url: "https://www.rrfoodproducts.com",
 		type: "website",
 		images: [
 			{
-				url: "/images/chanachur-banner.jpg", // Replace with an actual image of your chanachur product
+				url: "/images/chanachur-banner.jpg",
 				width: 1200,
 				height: 630,
 				alt: "R.R. Food Products - Authentic Chanachur and Tea Time Snacks from Raniganj",
@@ -80,7 +79,7 @@ export default function RootLayout({
 			<body
 				className={`${jockeyOne.className} ${kalnia.className} ${inriaSans.className}`}
 			>
-				<Navbar />
+				
 				<Main>{children}</Main>
 			</body>
 		</html>

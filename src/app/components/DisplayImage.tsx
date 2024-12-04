@@ -2,11 +2,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import React, { memo, useRef } from "react";
-
+import {useAnimationStore} from "@/store/Animations"
 function DisplayImage({ selectedImage }: { selectedImage: DisplayImage }) {
 	const div = useRef<HTMLDivElement>(null);
 	const image = useRef<HTMLDivElement>(null);
+	const store=useAnimationStore()
 	useGSAP(() => {
+		if (!image.current||store.animations) return;
 		gsap.from(image.current, {
 			opacity: 0,
 			duration: 1.2,
