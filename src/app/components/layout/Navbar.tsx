@@ -44,7 +44,7 @@ function Navbar() {
 
 	return (
 		<nav
-			className={` fixed top-0 right-3 md:right-0 flex py-5 items-center justify-center w-full z-50 ${
+			className={` fixed top-0 right-3 md:right-0 flex py-5 items-center justify-center md:w-full z-50 ${
 				pathname !== "/" &&
 				"border-b border-slate-800 bg-slate-200/70  backdrop-blur-sm"
 			}`}

@@ -72,9 +72,6 @@ function DrawerComp({
 							<h4 className="text-lg">Avalabile in:-</h4>
 							<h3 className="text-2xl">MRP: ₹{itemsArray[selected].price}</h3>
 						</div>
-						<div className="absolute right-5 bottom-3 text-2xl">
-							{itemsArray[selected].netWt}
-						</div>
 					</div>
 				</div>
 			</DrawerContent>
