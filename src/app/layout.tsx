@@ -14,11 +14,12 @@ export const metadata: Metadata = {
 		icon: "/favicon.ico",
 	},
 	keywords: [
-		"taja chanachur",
-		"chanachur",
+		"Taja Chanachur",
+		"Chanachur",
 		"tea time snacks",
 		"snacks for tea",
 		"R.R. Food Products",
+		"Rr food products",
 		"healthy snacks",
 		"Indian snacks",
 		"Raniganj snacks",
@@ -53,9 +54,14 @@ export const metadata: Metadata = {
 				url: "https://firebasestorage.googleapis.com/v0/b/aspirants-b1e24.appspot.com/o/icon%2Ffavicon.ico?alt=media&token=97997e1a-f711-4401-b834-7cfff6a224e6",
 				width: 1200,
 				height: 630,
-				alt: "R.R. Food Products - Authentic Chanachur and Tea Time Snacks from Raniganj",
+				alt: "R.R. Food Products",
 			},
 		],
+		locale: "en_IN",
+	},
+	robots: {
+		index: true,
+		follow: true,
 	},
 };
 
