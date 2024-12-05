@@ -27,10 +27,8 @@ function Navbar() {
 	const div = useRef<HTMLUListElement>(null);
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
-			if (
-				!div.current?.contains(e.target as Node) &&
-				e.target !== document.getElementById("trigger-btn")
-			) {
+			const target = e.target as HTMLElement;
+			if (target.id !== "trigger-btn" && target !== div.current) {
 				setActiveSection(false);
 			}
 		};
@@ -46,7 +44,7 @@ function Navbar() {
 		<nav
 			className={` fixed top-0 right-3 md:right-0 flex py-5 items-center justify-center md:w-full z-50 ${
 				pathname !== "/" &&
-				"border-b border-slate-800 bg-slate-200/70  backdrop-blur-sm"
+				"md:border-b md:border-slate-800 md:bg-slate-200/70  md:backdrop-blur-sm"
 			}`}
 		>
 			<button
@@ -75,11 +73,10 @@ function Navbar() {
 				))}
 			</ul>
 			<ul
-				className={`text-2xl gap-12 ${
-					pathname === "/" ? "text-white" : "text-black"
-				} justify-center flex items-center flex-col h-dvh md:hidden backdrop-blur-md top-0 right-0 fixed w-1/2 min-w-56  ${
-					activeSection ? "translate-x-0" : "translate-x-full"
-				} transition-all`}
+				className={`text-2xl gap-12
+					 text-black justify-center flex items-center flex-col h-dvh md:hidden bg-slate-100 backdrop-blur-md top-0 right-0 fixed w-1/2 min-w-56  ${
+							activeSection ? "translate-x-0" : "translate-x-full"
+						} transition-all`}
 				ref={div}
 			>
 				<button
@@ -92,7 +89,9 @@ function Navbar() {
 					<li key={link.name}>
 						<Link
 							href={`${link.href}`}
-							className={pathname === link.href ? "opacity-100" : "opacity-50"}
+							className={`${
+								pathname === link.href ? "opacity-100" : "opacity-50"
+							}`}
 						>
 							{link.name}
 						</Link>

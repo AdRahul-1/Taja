@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Kalnia, Jockey_One, Inria_Sans } from "next/font/google";
+import { Kalnia } from "next/font/google";
 import Main from "./Main";
 
 const kalnia = Kalnia({ subsets: ["latin"] });
-const jockeyOne = Jockey_One({ subsets: ["latin"], weight: "400" });
-const inriaSans = Inria_Sans({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
 	title:
@@ -16,6 +14,7 @@ export const metadata: Metadata = {
 		icon: "/favicon.ico",
 	},
 	keywords: [
+		"taja chanachur",
 		"chanachur",
 		"tea time snacks",
 		"snacks for tea",
@@ -32,11 +31,9 @@ export const metadata: Metadata = {
 		"rrfood",
 		"tajachanachur",
 		"taja chanachur raniganj",
-		"newtaja",
+		"new taja",
 		"newtajachanachur",
 		"taja",
-		"tajachanachur",
-		"tajachanachur",
 		"rr foods",
 		"rr food products",
 		"rr food products raniganj",
@@ -53,19 +50,12 @@ export const metadata: Metadata = {
 		type: "website",
 		images: [
 			{
-				url: "/images/chanachur-banner.jpg",
+				url: "https://firebasestorage.googleapis.com/v0/b/aspirants-b1e24.appspot.com/o/icon%2Ffavicon.ico?alt=media&token=97997e1a-f711-4401-b834-7cfff6a224e6",
 				width: 1200,
 				height: 630,
 				alt: "R.R. Food Products - Authentic Chanachur and Tea Time Snacks from Raniganj",
 			},
 		],
-	},
-	twitter: {
-		card: "summary_large_image",
-		title:
-			"R.R. Food Products | Delicious Chanachur & Tea Time Snacks from Raniganj, West Bengal",
-		description:
-			"Looking for authentic, crispy chanachur and other tea-time snacks? R.R. Food Products offers the best of both, made fresh in Raniganj, West Bengal. Order now!",
 	},
 };
 
@@ -77,7 +67,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${jockeyOne.className} ${kalnia.className} ${inriaSans.className}`}
+				className={`${kalnia.className}`}
 			>
 				
 				<Main>{children}</Main>
