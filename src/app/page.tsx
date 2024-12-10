@@ -63,7 +63,7 @@ function Home() {
 				</div>
 			</section>
 			<section className="flex pt-10 lg:pt-20 relative lg:items-center lg:flex-row flex-col-reverse gap-5 h-fit">
-				<div className="w-[90%] md:h-[40dvh] lg:h-[80dvh] lg:w-1/2 m-auto lg:m-0">
+				<div className="w-[90%] md:h-[40dvh] lg:h-[80dvh] lg:w-1/2 m-auto lg:m-0 relative">
 					<Image
 						src={"/Chira.webp"}
 						alt="Charaimge"
@@ -71,6 +71,7 @@ function Home() {
 						height={1000}
 						className="w-full h-full object-contain image-shadow"
 					/>
+					<div className="absolute top-0 left-0 w-full h-full z-10"></div>
 				</div>
 				<div
 					className="w-full lg:w-fit px-5 lg:px-0"

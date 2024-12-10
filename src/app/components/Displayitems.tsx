@@ -36,7 +36,9 @@ function Displayitems() {
 			{itemsImages.map((item, index) => (
 				<div className="" key={index}>
 					<DrawerComp itemsArray={item}>
-						<div  className="w-28 h-28">
+						<div  className="w-28 h-28 relative">
+					<div className="absolute top-0 left-0 w-full h-full z-10"></div>
+
 							<Image
 								src={item[0].url}
 								alt={item[0].title}

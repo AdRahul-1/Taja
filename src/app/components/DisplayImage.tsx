@@ -2,26 +2,26 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import React, { memo, useRef } from "react";
-import {useAnimationStore} from "@/store/Animations"
+import { useAnimationStore } from "@/store/Animations";
 function DisplayImage({ selectedImage }: { selectedImage: DisplayImage }) {
 	const div = useRef<HTMLDivElement>(null);
 	const image = useRef<HTMLDivElement>(null);
-	const store=useAnimationStore()
+	const store = useAnimationStore();
 	useGSAP(() => {
-		if (!image.current||store.animations) return;
+		if (!image.current || store.animations) return;
 		gsap.from(image.current, {
 			opacity: 0,
 			duration: 1.2,
 			scale: 2,
 			ease: "bounce",
-			delay:.2,
+			delay: 0.2,
 		});
 		gsap.from(div.current, {
 			opacity: 0,
 			duration: 1.2,
 			scale: 0,
 			ease: "expo",
-			delay:.1,
+			delay: 0.1,
 		});
 	}, []);
 	return (
@@ -52,9 +52,9 @@ function DisplayImage({ selectedImage }: { selectedImage: DisplayImage }) {
 					className="w-full h-full object-contain -rotate-6 filter image-shadow"
 					width={1000}
 					height={1000}
-					priority 
-					
+					priority
 				/>
+				<div className="absolute top-0 left-0 w-full h-full z-10"></div>
 			</div>
 		</div>
 	);

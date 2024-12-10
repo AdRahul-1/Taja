@@ -6,47 +6,38 @@ import Main from "./Main";
 const kalnia = Kalnia({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title:
-		"R.R. Food Products | Delicious Chanachur & Tea Time Snacks from Raniganj, West Bengal",
+	title: "R.R. Food Products | Premium Chanachur & Authentic Tea Time Snacks",
 	description:
-		"R.R. Food Products offers premium, crunchy chanachur and a variety of tea-time snacks made with love and high-quality ingredients. Based in Raniganj, West Bengal, our snacks are perfect for every occasion. Shop now for authentic, flavorful chanachur!",
+		"Discover R.R. Food Products, the home of premium, crispy chanachur and delicious tea-time snacks from Raniganj, West Bengal. Made with high-quality ingredients, our snacks bring authentic flavors to your plate. Order now and savor the taste of tradition!",
 	icons: {
 		icon: "/favicon.ico",
 	},
 	keywords: [
-		"Taja Chanachur",
-		"Chanachur",
-		"tea time snacks",
-		"snacks for tea",
-		"R.R. Food Products",
-		"Rr food products",
-		"healthy snacks",
-		"Indian snacks",
-		"Raniganj snacks",
-		"authentic chanachur",
-		"crispy snacks",
-		"snacks from West Bengal",
-		"delicious chanachur",
-		"crispy Indian snacks",
-		"rrfoodproducts",
-		"rrfood",
-		"tajachanachur",
-		"taja chanachur raniganj",
-		"new taja",
-		"newtajachanachur",
-		"taja",
-		"rr foods",
-		"rr food products",
-		"rr food products raniganj",
-		"rr food products raniganj west bengal",
-		"taja chanachur",
-
+		"Chanachur from Raniganj",
+		"Taja Chanachur Raniganj",
+		"Authentic Chanachur",
+		"Tea time snacks West Bengal",
+		"Indian snacks online",
+		"Healthy crispy snacks",
+		"R.R. Food Products Raniganj",
+		"Delicious tea-time snacks",
+		"Buy snacks online India",
+		"Best chanachur West Bengal",
+		"Snack brands Raniganj",
+		"Traditional Indian snacks",
+		"Crispy chanachur West Bengal",
+		"Order snacks online Raniganj",
+		"Tasty tea snacks India",
+		"New Taja Chanachur",
+		"Taja Chanachur online",
+		"R.R. Foods Raniganj",
+		"Raniganj tea snacks",
+		"Authentic Indian chanachur",
 	],
 	openGraph: {
-		title:
-			"R.R. Food Products | Delicious Chanachur & Tea Time Snacks from Raniganj, West Bengal",
+		title: "R.R. Food Products | Premium Chanachur & Authentic Tea Time Snacks",
 		description:
-			"Craving the perfect snack? R.R. Food Products from Raniganj, West Bengal offers the best crispy chanachur and other delicious tea-time snacks. Order online now for the authentic taste of happiness!",
+			"R.R. Food Products offers high-quality chanachur and tea-time snacks from Raniganj, West Bengal. Perfect for every occasion, our snacks combine tradition and flavor. Shop online for the authentic taste of Indian snacks!",
 		url: "https://www.rrfoodproducts.com",
 		type: "website",
 		images: [
@@ -54,7 +45,7 @@ export const metadata: Metadata = {
 				url: "https://firebasestorage.googleapis.com/v0/b/aspirants-b1e24.appspot.com/o/icon%2Ffavicon.ico?alt=media&token=97997e1a-f711-4401-b834-7cfff6a224e6",
 				width: 1200,
 				height: 630,
-				alt: "R.R. Food Products",
+				alt: "R.R. Food Products Logo",
 			},
 		],
 		locale: "en_IN",
@@ -63,7 +54,15 @@ export const metadata: Metadata = {
 		index: true,
 		follow: true,
 	},
+	twitter: {
+		card: "summary_large_image",
+		site: "@RRFoodProducts",
+		title: "R.R. Food Products | Premium Chanachur & Authentic Tea Time Snacks",
+		description:
+			"Savor the finest crispy chanachur and tea-time snacks from R.R. Food Products, Raniganj, West Bengal. Authentic Indian flavors crafted with care. Order now!",
+	},
 };
+
 
 export default function RootLayout({
 	children,
