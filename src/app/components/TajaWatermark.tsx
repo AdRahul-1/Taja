@@ -24,12 +24,12 @@ function TajaWatermark() {
     },[])
 	return (
 		<div
-			className="absolute top-0 left-10 opacity-10"
+			className="absolute top-10 lg:top-0 left-10 opacity-10"
 			data-scroll
 			data-scroll-speed=".3"
 		>
 			<h1
-				className={`tracking-wide font-bold flex -rotate-[20deg] ${jockeyOne.className} lg:text-[23rem] xl:text-[27rem] `}
+				className={`tracking-wide font-bold flex -rotate-[20deg] ${jockeyOne.className} text-9xl lg:text-[23rem] xl:text-[27rem] `}
                 ref={div}
 			>
                 {"TAJA".split("").map((char, index) => (
