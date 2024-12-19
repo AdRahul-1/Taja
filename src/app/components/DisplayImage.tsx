@@ -54,7 +54,7 @@ function DisplayImage({ selectedImage }: { selectedImage: DisplayImage }) {
 					height={1000}
 					priority
 				/>
-				<div className="absolute top-0 left-0 w-full h-full z-10"></div>
+				<div className="absolute top-0 left-0 w-full h-full z-10 -rotate-6"></div>
 			</div>
 		</div>
 	);
