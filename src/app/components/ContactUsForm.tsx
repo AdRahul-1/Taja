@@ -1,8 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+
 import {
 	Form,
 	FormControl,
@@ -35,24 +37,50 @@ function ContactUsForm() {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 	});
+	const { toast } = useToast();
 	function onSubmit(values: z.infer<typeof FormSchema>) {
-		const form = document.createElement("form");
-		form.action = "https://formsubmit.co/c8be25bfb9d04f34d244c1d7a571ecf3";
-		form.method = "POST";
-		form.style.display = "none";
+		// const form = document.createElement("form");
+		// // form.action = "https://formsubmit.co/c8be25bfb9d04f34d244c1d7a571ecf3";
+		// form.action = "https://formsubmit.co/el/confirm/5070514bad29ed70d02c97c1879ef577";
+		// form.method = "POST";
+		// form.style.display = "none";
 
-		Object.keys(values).forEach((key) => {
-			const input = document.createElement("input");
-			input.name = key;
-			input.value = values[key as keyof typeof values] as string;
-			form.appendChild(input);
-		});
-		document.body.appendChild(form);
-		form.submit();
+		// Object.keys(values).forEach((key) => {
+		// 	const input = document.createElement("input");
+		// 	input.name = key;
+		// 	input.value = values[key as keyof typeof values] as string;
+		// 	form.appendChild(input);
+		// });
+		// document.body.appendChild(form);
+		// form.submit();
+		fetch("/api/send-email", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(values),
+		})
+			.then((_) => {
+				console.log("send")
+				toast({
+					title: "Success: Message Sent",
+					description: "Your message has been sent successfully.",
+				});
+				setKey((prev) => prev + 1);
+				form.reset();	
+			})
+			.catch((_) => {
+				toast({
+					title: "Error",
+					description: "Sorry, something went wrong.",
+					variant: "destructive",
+				});
+			});
 	}
+	const [key, setKey] = useState(0)
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="">
+			<form onSubmit={form.handleSubmit(onSubmit)} className="" key={key}>
 				<div className="grid gap-4 lg:grid-cols-2">
 					<FormField
 						control={form.control}
@@ -76,7 +104,7 @@ function ContactUsForm() {
 							<FormItem>
 								<FormLabel>Email</FormLabel>
 								<FormControl>
-									<Input placeholder="Your name" {...field} />
+									<Input placeholder="Your name" {...field}  type="email"/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -108,7 +136,11 @@ function ContactUsForm() {
 									Contact Number <span className="text-red-500">*</span>
 								</FormLabel>
 								<FormControl>
-									<Input placeholder="Your contact number" {...field} />
+									<Input
+										placeholder="Your contact number"
+										{...field}
+										maxLength={10}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -154,7 +186,10 @@ function ContactUsForm() {
 								Message <span className="text-red-500">*</span>
 							</FormLabel>
 							<FormControl>
-								<Textarea placeholder="Your message" {...field} />
+								<Textarea
+									placeholder="Your message. Minimun 10 words..."
+									{...field}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -163,7 +198,6 @@ function ContactUsForm() {
 				<Button
 					type="submit"
 					className="w-full mt-4"
-					disabled={!form.formState.isValid}
 				>
 					Submit
 				</Button>

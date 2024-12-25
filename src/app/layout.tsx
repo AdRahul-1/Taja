@@ -3,12 +3,15 @@ import "./globals.css";
 import { Kalnia } from "next/font/google";
 import Main from "./Main";
 const kalnia = Kalnia({ subsets: ["latin"] });
+import { Inter } from "next/font/google";
 
+const jockeyOne = Inter({ subsets: ["latin"], weight: "400" });
+import { Toaster } from "@/components/ui/toaster";
 export const metadata: Metadata = {
 	title: "R.R. Food Products | Premium Chanachur & Authentic Tea Time Snacks",
 	description:
 		"Discover R.R. Food Products, the home of premium, crispy chanachur and delicious tea-time snacks from Raniganj, West Bengal. Made with high-quality ingredients, our snacks bring authentic flavors to your plate.",
-	
+
 	icons: {
 		icon: "/favicon.ico",
 	},
@@ -72,6 +75,9 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${kalnia.className}`}>
+				<div className={`${jockeyOne.className}`}>
+					<Toaster />
+				</div>
 				<Main>{children}</Main>
 			</body>
 		</html>

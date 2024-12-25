@@ -1,9 +1,9 @@
 import React, { memo,use,useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import {useAnimationStore} from "@/store/Animations"
 import { Jockey_One } from "next/font/google";
 
-import {useAnimationStore} from "@/store/Animations"
 const jockeyOne = Jockey_One({ subsets: ["latin"], weight: "400" });
 function TajaWatermark() {
     const store=useAnimationStore()
