@@ -61,7 +61,6 @@ function ContactUsForm() {
 			body: JSON.stringify(values),
 		})
 			.then((_) => {
-				console.log("send")
 				toast({
 					title: "Success: Message Sent",
 					description: "Your message has been sent successfully.",

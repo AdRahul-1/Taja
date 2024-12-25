@@ -14,7 +14,6 @@ export async function POST(req:Request) {
       subject: 'Hello world',
       react: EmailTemplate({...body}),
     });
-console.log(body)
     if (error) {
       return Response.json({ error }, { status: 500 });
     }
