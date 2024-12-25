@@ -15,12 +15,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 const FormSchema = z.object({
-	name: z.string().min(1, { message: "Name is required." }),
-	address: z.string().min(1, { message: "Address is required." }),
+	name: z.string().min(5, { message: "Name is required." }),
+	address: z.string().min(5, { message: "Address is required." }),
 	contactNo: z
 		.string()
 		.regex(/^\d{10}$/, { message: "Contact number must be 10 digits." }),
-	message: z.string().min(1, { message: "Message is required." }),
+	message: z.string().min(10, { message: "Message is required." }),
 	gstNumber: z
 		.string()
 		.regex(/^\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}$/, {
@@ -34,23 +34,25 @@ const FormSchema = z.object({
 function ContactUsForm() {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
-		defaultValues: {
-			name: "",
-			address: "",
-			contactNo: "",
-			message: "",
-			gstNumber: "",
-			businessName: "",
-			email: "",
-		},
 	});
+	function onSubmit(values: z.infer<typeof FormSchema>) {
+		const form = document.createElement("form");
+		form.action = "https://formsubmit.co/c8be25bfb9d04f34d244c1d7a571ecf3";
+		form.method = "POST";
+		form.style.display = "none";
+
+		Object.keys(values).forEach((key) => {
+			const input = document.createElement("input");
+			input.name = key;
+			input.value = values[key as keyof typeof values] as string;
+			form.appendChild(input);
+		});
+		document.body.appendChild(form);
+		form.submit();
+	}
 	return (
 		<Form {...form}>
-			<form
-				action="https://formsubmit.co/c8be25bfb9d04f34d244c1d7a571ecf3"
-				method="POST"
-				className=""
-			>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="">
 				<div className="grid gap-4 lg:grid-cols-2">
 					<FormField
 						control={form.control}

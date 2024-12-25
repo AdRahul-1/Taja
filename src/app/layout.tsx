@@ -2,35 +2,36 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Kalnia } from "next/font/google";
 import Main from "./Main";
-
 const kalnia = Kalnia({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
 	title: "R.R. Food Products | Premium Chanachur & Authentic Tea Time Snacks",
 	description:
-		"Discover R.R. Food Products, the home of premium, crispy chanachur and delicious tea-time snacks from Raniganj, West Bengal. Made with high-quality ingredients, our snacks bring authentic flavors to your plate. Order now and savor the taste of tradition!",
+		"Discover R.R. Food Products, the home of premium, crispy chanachur and delicious tea-time snacks from Raniganj, West Bengal. Made with high-quality ingredients, our snacks bring authentic flavors to your plate.",
+	
 	icons: {
 		icon: "/favicon.ico",
 	},
 	keywords: [
-		"Chanachur from Raniganj",
+		"New Taja Chanachur",
 		"Taja Chanachur Raniganj",
+		"R.R. Food Products Raniganj",
+		"R.R. Foods Raniganj",
+		"Chanachur from Raniganj",
+		"Snack brands Raniganj",
+		"Best snacks West Bengal",
 		"Authentic Chanachur",
 		"Tea time snacks West Bengal",
 		"Indian snacks online",
 		"Healthy crispy snacks",
-		"R.R. Food Products Raniganj",
 		"Delicious tea-time snacks",
 		"Buy snacks online India",
 		"Best chanachur West Bengal",
-		"Snack brands Raniganj",
 		"Traditional Indian snacks",
 		"Crispy chanachur West Bengal",
 		"Order snacks online Raniganj",
 		"Tasty tea snacks India",
-		"New Taja Chanachur",
 		"Taja Chanachur online",
-		"R.R. Foods Raniganj",
 		"Raniganj tea snacks",
 		"Authentic Indian chanachur",
 	],
@@ -57,12 +58,11 @@ export const metadata: Metadata = {
 	twitter: {
 		card: "summary_large_image",
 		site: "@RRFoodProducts",
-		title: "R.R. Food Products | Premium Chanachur & Authentic Tea Time Snacks",
+		title: "Authentic Chanachur & Tea Snacks from R.R. Food Products",
 		description:
-			"Savor the finest crispy chanachur and tea-time snacks from R.R. Food Products, Raniganj, West Bengal. Authentic Indian flavors crafted with care. Order now!",
+			"Savor the finest crispy chanachur and tea-time snacks from R.R. Food Products, Raniganj, West Bengal. Authentic Indian flavors crafted with care.",
 	},
 };
-
 
 export default function RootLayout({
 	children,
@@ -71,10 +71,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body
-				className={`${kalnia.className}`}
-			>
-				
+			<body className={`${kalnia.className}`}>
 				<Main>{children}</Main>
 			</body>
 		</html>
