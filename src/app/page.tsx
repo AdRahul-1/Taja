@@ -40,13 +40,15 @@ function Home() {
 			className="min-h-dvh h-fit  text-white max-w-[100vw] overflow-x-hidden relative z-0"
 			style={{ backgroundColor: selectedImage.bgColor }}
 		>
-			<Image
-				src={"/taja.png"}
-				height={500}
-				width={500}
-				alt="rr"
-				className="w-24 xl:w-44 h-24 xl:h-44 drop-shadow-lg fixed top-0 left-4 z-50"
-			></Image>
+			<div className="w-24 xl:w-48 h-20 xl:h-[8rem] fixed top-2 xl:top-4 left-4 z-50">
+				<Image
+					src={"/taja.png"}
+					height={500}
+					width={500}
+					alt="rr"
+					className="w-full h-full drop-shadow-lg "
+				></Image>
+			</div>
 			<Image
 				src={"/rr_logo.png"}
 				height={100}
@@ -83,7 +85,6 @@ function Home() {
 					<h3 className=" md:text-lg mt-4">Only for special occasions/order</h3>
 				</div>
 			</section>
-	
 		</main>
 	);
 }
