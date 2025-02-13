@@ -1,6 +1,12 @@
-"use client";
+
 import Image from "next/image";
 import ContactUsForm from "../components/ContactUsForm";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+	title: "Contact Us | R.R. Food Products",
+	description:
+		"Contact R.R. Food Products for any inquiries, feedback, or suggestions.",
+}
 function ContactUsPage() {
 	return (
 		<div className="min-h-screen bg-gray-100 flex items-center justify-center p-6 font-sans">

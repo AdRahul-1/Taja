@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 		"Taja Chanachur online",
 		"Raniganj tea snacks",
 		"Authentic Indian chanachur",
+		"Taja"
 	],
 	openGraph: {
 		title: "R.R. Food Products | Premium Chanachur & Authentic Tea Time Snacks",
@@ -75,6 +76,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${kalnia.className}`}>
+				<h1 className="hidden">Taja chanachur(RR FOOD PRODUCTS)</h1>
 				<div className={`${jockeyOne.className}`}>
 					<Toaster />
 				</div>

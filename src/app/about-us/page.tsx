@@ -1,7 +1,12 @@
-"use client";
 import Image from "next/image";
 import React from "react";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+	title: "About Us | R.R. Food Products",
+	description:
+		"Learn more about our story and our commitment to quality and customer satisfaction.",
+};
 function AboutUs() {
 	return (
 		<div className="min-h-screen bg-gray-50 py-14 px-6">
