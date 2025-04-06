@@ -80,6 +80,7 @@ function Home() {
 					data-scroll
 					data-scroll-speed=".1"
 				>
+				
 					<h2 className="text-3xl md:text-4xl font-sembold">As Fun as New</h2>
 					<h2 className="text-4xl md:text-5xl font-bold">Special Masala chira</h2>
 					<h3 className=" md:text-lg mt-4">Available in MRP:- 10 & 5</h3>
