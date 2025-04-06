@@ -65,9 +65,9 @@ function Home() {
 				</div>
 			</section>
 			<section className="flex pt-10 lg:pt-20 relative lg:items-center lg:flex-row flex-col-reverse gap-5 h-fit">
-				<div className="w-[90%] md:h-[40dvh] lg:h-[80dvh] lg:w-1/2 m-auto lg:m-0 relative">
+				<div className="w-[90%] md:h-[35dvh] lg:h-[70dvh] lg:w-1/2 m-auto lg:m-0 relative">
 					<Image
-						src={"/Chira.webp"}
+						src={"/Chira.png"}
 						alt="Charaimge"
 						width={1000}
 						height={1000}
@@ -80,9 +80,9 @@ function Home() {
 					data-scroll
 					data-scroll-speed=".1"
 				>
-					<h2 className="text-3xl md:text-4xl">As Old As Time</h2>
-					<h2 className="text-4xl md:text-5xl">Our Special Chira</h2>
-					<h3 className=" md:text-lg mt-4">Only for special occasions/order</h3>
+					<h2 className="text-3xl md:text-4xl font-sembold">As Fun as New</h2>
+					<h2 className="text-4xl md:text-5xl font-bold">Special Masala chira</h2>
+					<h3 className=" md:text-lg mt-4">Available in MRP:- 10 & 5</h3>
 				</div>
 			</section>
 		</main>
