@@ -19,6 +19,7 @@ function getRandomRotation() {
 const selectedImage = mainImage[Math.floor(Math.random() * mainImage.length)];
 gsap.registerPlugin(useGSAP);
 
+
 function Home() {
   const [isLocoEnabled, setIsLocoEnabled] = useState(window.innerWidth >= 768);
 
