@@ -75,7 +75,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${kalnia.className}`}>
+			<body className={`${kalnia.className} bg-background`}>
 				<h1 className="hidden">Taja chanachur(RR FOOD PRODUCTS)</h1>
 				<div className={`${jockeyOne.className}`}>
 					<Toaster />
