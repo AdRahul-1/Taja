@@ -6,7 +6,7 @@ import Link from "next/link";
 const inriaSans = Inria_Sans({ subsets: ["latin"], weight: "400" });
 function Footer() {
 	return (
-		<footer className={`${inriaSans.className} p-3 text-black `}>
+		<footer className={`${inriaSans.className} p-3 bg-black text-white font-thin text-xs sm:text-base rounded-t-xl`}>
 			<div className="p-2 text-center md:text-left">
 				<div className="flex justify-between px-4 md:px-10 py-2 flex-col md:flex-row gap-4 md:gap-0">
 					<div className="md:w-1/3">
@@ -27,19 +27,19 @@ function Footer() {
 								className=""
 								target="_blank"
 							>
-								<Instagram />
+								<Instagram className="size-5 sm:size-6"/>
 							</Link>
 							<Link
 								href="https://www.facebook.com/profile.php?id=61558675132758"
 								className=""
 								target="_blank"
 							>
-								<Facebook />
+								<Facebook className="size-5 sm:size-6"/>
 							</Link>
 						</div>
 					</div>
 				</div>
-				<p className="text-lg text-center leading-none">
+				<p className="text-xs sm:text-base text-center leading-none">
 					Stay connected for updates on new products and promotions!
 				</p>
 			</div>

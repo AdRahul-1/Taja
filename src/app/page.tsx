@@ -11,6 +11,9 @@ import { Kalnia } from "next/font/google";
 import DrawerComp from "./components/DrawerComp";
 import { itemsImages } from "@/constants";
 import ContactUsForm from "./components/ContactUsForm";
+import { Headset, Warehouse } from "lucide-react";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const kalnia = Kalnia({ subsets: ["latin"] });
 const jockeyOne = Jockey_One({ subsets: ["latin"], weight: "400" });
@@ -23,22 +26,26 @@ gsap.registerPlugin(useGSAP);
 
 function Home() {
   const [isLocoEnabled, setIsLocoEnabled] = useState(window.innerWidth >= 768);
+  // const [loco, setLoco] = useState<LocomotiveScroll | null>(null);
+  const loco = new LocomotiveScroll();
+  // setLoco(loco);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     const shouldEnableLoco = window.innerWidth >= 768;
+  //     setIsLocoEnabled(shouldEnableLoco);
+  //   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      const shouldEnableLoco = window.innerWidth >= 768;
-      setIsLocoEnabled(shouldEnableLoco);
-    };
-    window.addEventListener("resize", handleResize);
-    if (!isLocoEnabled) {
-      return;
-    }
-    const loco = new LocomotiveScroll();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      loco.destroy();
-    };
-  }, []);
+  //   window.addEventListener("resize", handleResize);
+  //   // if (!isLocoEnabled) {
+  //   //   return;
+  //   // }
+
+
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //     loco.destroy();
+  //   };
+  // }, []);
 
   const store = useAnimationStore();
   const main = useRef<HTMLElement>(null);
@@ -65,32 +72,40 @@ function Home() {
       t1.from("[data-taja-text]>span", {
         x: "-50%",
         opacity: 0,
-        ease: "power2.out",
+        // ease: "power2.out",
         duration: 1,
         stagger: 0.2,
       });
       t1.from("[data-hero-text]>h1", {
         y: "-50%",
         opacity: 0,
-        ease: "power2.out",
+        // ease: "power2.out",
         duration: 1,
         stagger: 0.2,
-        delay: -.2,
+        delay: -.3,
       }, "a");
       t1.from("[data-hero-text]>p", {
+        y: "-50%",
+        opacity: 0,
+        // ease: "power2.out",
+        duration: 1,
+        stagger: 0.2,
+      },"a");
+      t1.from("[data-buttons]", {
         y: "100%",
         opacity: 0,
-        ease: "power2.out",
+        // ease: "power2.out",
         duration: 1,
+        delay: -.2,
         stagger: 0.2,
         onComplete: () => {
           store.setAnimation();
         },
-      }, "a");
+      });
       gsap.from("[data-display-items] > div", {
         y: "100%",
         opacity: 0,
-        ease: "expo.out",
+        // ease: "expo.out",
         duration: 2.5,
         stagger: 0.45,
       });
@@ -100,14 +115,14 @@ function Home() {
   return (
     <main
       className="min-h-dvh text-white max-w-[100vw] overflow-x-hidden relative z-0"
-
       ref={main}
     >
-      <div className="w-20 xl:w-48 h-16 xl:h-[8rem] fixed top-3 xl:top-4 left-4 z-50">
+      <div className="w-16 xl:w-48 h-12 xl:h-[8rem] fixed top-3 xl:top-4 left-4 z-50">
         <Image
           src={"/taja.png"}
           height={500}
           width={500}
+          priority
           alt="rr"
           className="w-full h-full drop-shadow-lg "
         ></Image>
@@ -116,8 +131,9 @@ function Home() {
         src={"/rr_logo.png"}
         height={100}
         width={100}
+        priority
         alt="rr"
-        className="size-10 xl:size-12 drop-shadow-lg fixed top-4 right-4 z-50 hidden md:block"
+        className="size-6 md:size-10 xl:size-12 drop-shadow-lg fixed top-4 right-4 z-50"
       ></Image>
 
       <section className="relative flex items-center justify-between flex-col lg:flex-row lg:p-12 xl:p-20 gap-32 sm:gap-24 h-fit lg:h-dvh lg:gap-0"
@@ -128,7 +144,7 @@ function Home() {
           data-scroll
           data-scroll-speed=".3"
         >
-          <div className="-translate-x-1/2+ sm:-translate-x-2/3 xl:-translate-x-0 opacity-10">
+          <div className="-translate-x-1/2 sm:-translate-x-2/3 xl:-translate-x-0 opacity-10">
             <h1
               className={`tracking-wide font-bold flex xl:-rotate-[20deg] ${jockeyOne.className} text-[13rem] lg:text-[23rem] xl:text-[27rem] `}
               data-taja-text
@@ -141,7 +157,7 @@ function Home() {
         </div>
 
         <div
-          className="translate-y-[30%] text-center lg:text-left mt-20 lg:mt-0 z-20"
+          className="translate-y-[30%] text-center lg:text-left mt-20 lg:mt-0 z-50 lg:z-20"
           data-hero-text
         >
           <h1
@@ -150,6 +166,17 @@ function Home() {
             Your evening <br /> partner
           </h1>
           <p className="text-xl md:text-2xl mt-1 lg:mt-5">Now more crispier</p>
+
+          <div className="flex gap-4 mt-5 justify-center sm:justify-start relative text-sm" data-buttons>
+            <button className="flex gap-3 px-4 py-2 border border-white/50 rounded-full  items-center justify-center" onClick={() => loco.scrollTo("#contact")}>
+
+              <Headset className="size-4" />Contact
+
+            </button>
+            <button className={cn("rounded-full flex gap-3 px-4 py-2   items-center justify-center", `bg-[${selectedImage.blurCircle}]`)} style={{backgroundColor: selectedImage.innerCircle, color: "white" }} onClick={() => loco.scrollTo("#about")}>
+              <Warehouse className="size-4" />About
+            </button>
+          </div>
         </div>
 
         <div
@@ -178,8 +205,8 @@ function Home() {
               src={selectedImage.url}
               alt="mainImage"
               className="w-full h-full object-contain -rotate-6 filter image-shadow"
-              width={1000}
-              height={1000}
+              width={800}
+              height={800}
               priority
             />
             <div className="absolute top-0 left-0 w-full h-full z-10 -rotate-6"></div>
@@ -239,7 +266,7 @@ function Home() {
           <div className="absolute top-0 left-0 w-full h-full z-10"></div>
         </div>
         <div
-          className="w-full lg:w-fit px-5 lg:px-0 relative z-10 -translate-y-full"
+          className="w-full lg:w-fit px-5 lg:px-0 relative z-10 sm:-translate-y-full"
           data-scroll
           data-scroll-speed=".1"
         >
@@ -252,7 +279,7 @@ function Home() {
       </section>
 
 
-      <section className="relative min-h-screen w-full ">
+      <section className="relative min-h-screen w-full " id="about">
         {/* Cool Blue Glow Right */}
         <div
           className="absolute inset-0 z-0"
@@ -349,7 +376,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="relative">
+      <section className="relative" id="contact">
         <div
           className="absolute inset-0 z-0"
           style={{
@@ -365,8 +392,8 @@ function Home() {
             backgroundRepeat: "no-repeat",
           }}
         />
-        <div className="min-h-screen flex items-center justify-center p-6 font-sans relative z-10">
-          <div className="  rounded-lg p-8 flex lg:w-fit w-full items-center gap-10 mt-6">
+        <div className="min-h-screen flex items-center justify-center p-3 md:p-6 font-sans relative z-10">
+          <div className="  rounded-lg sm:p-4 lg:p-8 flex lg:w-fit w-full items-center gap-10 mt-6">
             <Image
               src="/Customer Service.svg"
               alt=""
