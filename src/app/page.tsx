@@ -10,6 +10,7 @@ import { Jockey_One } from "next/font/google";
 import { Kalnia } from "next/font/google";
 import DrawerComp from "./components/DrawerComp";
 import { itemsImages } from "@/constants";
+import ContactUsForm from "./components/ContactUsForm";
 
 const kalnia = Kalnia({ subsets: ["latin"] });
 const jockeyOne = Jockey_One({ subsets: ["latin"], weight: "400" });
@@ -74,8 +75,8 @@ function Home() {
         ease: "power2.out",
         duration: 1,
         stagger: 0.2,
-		delay:-.2,
-      },"a");
+        delay: -.2,
+      }, "a");
       t1.from("[data-hero-text]>p", {
         y: "100%",
         opacity: 0,
@@ -85,7 +86,7 @@ function Home() {
         onComplete: () => {
           store.setAnimation();
         },
-      },"a");
+      }, "a");
       gsap.from("[data-display-items] > div", {
         y: "100%",
         opacity: 0,
@@ -98,8 +99,8 @@ function Home() {
 
   return (
     <main
-      className="min-h-dvh h-fit  text-white max-w-[100vw] overflow-x-hidden relative z-0"
-      style={{ backgroundColor: selectedImage.bgColor }}
+      className="min-h-dvh text-white max-w-[100vw] overflow-x-hidden relative z-0"
+
       ref={main}
     >
       <div className="w-20 xl:w-48 h-16 xl:h-[8rem] fixed top-3 xl:top-4 left-4 z-50">
@@ -116,15 +117,18 @@ function Home() {
         height={100}
         width={100}
         alt="rr"
-        className="w-8 xl:w-10 h-6 xl:h-10 drop-shadow-lg fixed top-4 right-4 z-50 hidden md:block"
+        className="size-10 xl:size-12 drop-shadow-lg fixed top-4 right-4 z-50 hidden md:block"
       ></Image>
-      <section className="relative flex items-center justify-between flex-col lg:flex-row lg:p-12 xl:p-20 gap-32 sm:gap-24 h-fit lg:h-dvh lg:gap-0">
+
+      <section className="relative flex items-center justify-between flex-col lg:flex-row lg:p-12 xl:p-20 gap-32 sm:gap-24 h-fit lg:h-dvh lg:gap-0"
+        style={{ backgroundColor: selectedImage.bgColor }}
+      >
         <div
           className="absolute top-10 xl:top-0 left-1/2 xl:left-10"
           data-scroll
           data-scroll-speed=".3"
         >
-          <div className="-translate-x-1/2 xl:-translate-x-0 opacity-10">
+          <div className="-translate-x-1/2+ sm:-translate-x-2/3 xl:-translate-x-0 opacity-10">
             <h1
               className={`tracking-wide font-bold flex xl:-rotate-[20deg] ${jockeyOne.className} text-[13rem] lg:text-[23rem] xl:text-[27rem] `}
               data-taja-text
@@ -182,7 +186,7 @@ function Home() {
           </div>
         </div>
 
-        <div className="static lg:absolute bottom-14 left-10 lg:translate-x-[10%] z-30">
+        <div className="static lg:absolute bottom-7 xl:bottom-14 left-0 sm:translate-x-[8%] xl:translate-x-[10%] z-30">
           <div
             className="flex gap-3 flex-wrap md:flex-nowrap items-center justify-evenly sm:justify-center"
             data-display-items
@@ -191,7 +195,7 @@ function Home() {
               <div className="" key={index}>
                 <DrawerComp itemsArray={item}>
                   <div
-                    className="w-28 h-28 relative"
+                    className="size-20 md:size-24 xl:size-28 relative"
                     style={{
                       transform: `rotate(${getRandomRotation()}deg)`,
                     }}
@@ -213,19 +217,29 @@ function Home() {
         </div>
       </section>
 
-      <section className="flex pt-10 lg:pt-20 relative lg:items-center lg:flex-row flex-col-reverse gap-5 h-fit">
-        <div className="w-[90%] md:h-[35dvh] lg:h-[70dvh] lg:w-1/2 m-auto lg:m-0 relative">
+      <section className="flex pt-10 lg:pt-20 relative lg:items-center lg:flex-row flex-col-reverse gap-5 h-fit relativve"
+
+      >
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `
+            linear-gradient(180deg,${selectedImage.bgColor} 0%, rgba(255, 255, 255, 0) 100%)`,
+            backgroundSize: "100% 100%",
+          }}
+        />
+        <div className="w-[90%] md:h-[35dvh] lg:h-[70dvh] lg:w-1/2 m-auto lg:m-0 relative z-10">
           <Image
             src={"/Chira.png"}
             alt="Charaimge"
             width={1000}
             height={1000}
-            className="w-full h-full object-contain image-shadow"
+            className="w-full h-full object-contain image-shadow-sm"
           />
           <div className="absolute top-0 left-0 w-full h-full z-10"></div>
         </div>
         <div
-          className="w-full lg:w-fit px-5 lg:px-0"
+          className="w-full lg:w-fit px-5 lg:px-0 relative z-10 -translate-y-full"
           data-scroll
           data-scroll-speed=".1"
         >
@@ -234,6 +248,142 @@ function Home() {
             Special Masala chira
           </h2>
           <h3 className=" md:text-lg mt-4">Available in MRP:- 10 & 5</h3>
+        </div>
+      </section>
+
+
+      <section className="relative min-h-screen w-full ">
+        {/* Cool Blue Glow Right */}
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            background: "#ffffff",
+            backgroundImage: `
+        radial-gradient(
+          circle at top right,
+          rgba(21, 190, 255, 0.5),
+          transparent 70%
+        )
+      `,
+            filter: "blur(80px)",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+        {/* Your Content/Components */}
+
+        <div className=" py-14 px-6 relative z-10">
+          <div className="max-w-7xl mx-auto ">
+            <h1 className="text-4xl font-bold text-gray-800 text-center mb-4">
+              About Us
+            </h1>
+            <p className="text-lg text-gray-600 text-center mb-8">
+              Since 2009, we have been crafting the finest tea-time snacks with a
+              passion for quality and a dedication to customer satisfaction.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+
+              <div>
+                <Image
+                  src="/ABOUT.webp"
+                  alt="Tea Time Snacks"
+                  className="rounded-lg shadow-md"
+                  width={500}
+                  height={500}
+                />
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                  Our Story
+                </h2>
+                <p className="text-gray-600 mb-4">
+                  Established in 2009, our journey began with a simple idea: to
+                  bring joy to tea time with delicious, high-quality snacks. Over
+                  the years, we have built a loyal customer base by never
+                  compromising on taste or quality.
+                </p>
+                <p className="text-gray-600 mb-4">
+                  Our snacks are made with the finest ingredients, ensuring every
+                  bite delivers the perfect balance of flavor and freshness. From
+                  crispy biscuits to savory munchies, we have something for everyone
+                  to enjoy with their tea.
+                </p>
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                  Our Commitment
+                </h2>
+                <p className="text-gray-600">
+                  Customer satisfaction has always been at the heart of our
+                  business. We continuously innovate and refine our products to meet
+                  the evolving tastes of our customers while maintaining the
+                  traditional essence of tea-time snacks.
+                </p>
+              </div>
+            </div>
+
+            {/* Values Section */}
+            <div className="mt-10">
+              <h2 className="text-2xl font-semibold text-gray-800 text-center mb-4">
+                Why Choose Us?
+              </h2>
+              <ul className="space-y-4 text-gray-600">
+                <li className="flex items-center">
+                  <span className="w-4 h-4 bg-[#4563fe] rounded-full mr-3"></span>
+                  Over a decade of experience in crafting tea-time snacks.
+                </li>
+                <li className="flex items-center">
+                  <span className="w-4 h-4 bg-[#4563fe] rounded-full mr-3"></span>
+                  Focus on quality, using the finest ingredients.
+                </li>
+                <li className="flex items-center">
+                  <span className="w-4 h-4 bg-[#4563fe] rounded-full mr-3"></span>
+                  Customer satisfaction as our top priority.
+                </li>
+                <li className="flex items-center">
+                  <span className="w-4 h-4 bg-[#4563fe] rounded-full mr-3"></span>A
+                  wide range of snacks to suit every tea-time occasion.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative">
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            background: "#ffffff",
+            backgroundImage: `
+        radial-gradient(
+          circle at top left,
+          rgba(173, 109, 244, 0.5),
+          transparent 70%
+        )
+      `,
+            filter: "blur(80px)",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+        <div className="min-h-screen flex items-center justify-center p-6 font-sans relative z-10">
+          <div className="  rounded-lg p-8 flex lg:w-fit w-full items-center gap-10 mt-6">
+            <Image
+              src="/Customer Service.svg"
+              alt=""
+              width={400}
+              height={400}
+              className=" w-96 h-96 object-contain md:block hidden"
+            ></Image>
+            <div className="text-black">
+              <h1 className="text-2xl font-semibold text-gray-800 text-center">
+                Contact Us
+              </h1>
+              <p className="text-gray-600 text-center mb-6">
+                We{`'`}d love to hear from you! Please fill out the form below.
+              </p>
+              <ContactUsForm />
+            </div>
+          </div>
         </div>
       </section>
     </main>
