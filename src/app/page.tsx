@@ -26,26 +26,18 @@ gsap.registerPlugin(useGSAP);
 
 function Home() {
   const [isLocoEnabled, setIsLocoEnabled] = useState(window.innerWidth >= 768);
-  // const [loco, setLoco] = useState<LocomotiveScroll | null>(null);
   const loco = new LocomotiveScroll();
-  // setLoco(loco);
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     const shouldEnableLoco = window.innerWidth >= 768;
-  //     setIsLocoEnabled(shouldEnableLoco);
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-  //   // if (!isLocoEnabled) {
-  //   //   return;
-  //   // }
-
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //     loco.destroy();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      const shouldEnableLoco = window.innerWidth >= 768;
+      setIsLocoEnabled(shouldEnableLoco);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      loco.destroy();
+    };
+  }, []);
 
   const store = useAnimationStore();
   const main = useRef<HTMLElement>(null);
@@ -90,7 +82,7 @@ function Home() {
         // ease: "power2.out",
         duration: 1,
         stagger: 0.2,
-      },"a");
+      }, "a");
       t1.from("[data-buttons]", {
         y: "100%",
         opacity: 0,
@@ -141,8 +133,8 @@ function Home() {
       >
         <div
           className="absolute top-10 xl:top-0 left-1/2 xl:left-10"
-          data-scroll
-          data-scroll-speed=".3"
+          data-scroll={isLocoEnabled}
+          data-scroll-speed={isLocoEnabled?".3":"0"}
         >
           <div className="-translate-x-1/2 sm:-translate-x-2/3 xl:-translate-x-0 opacity-10">
             <h1
@@ -173,7 +165,7 @@ function Home() {
               <Headset className="size-4" />Contact
 
             </button>
-            <button className={cn("rounded-full flex gap-3 px-4 py-2   items-center justify-center", `bg-[${selectedImage.blurCircle}]`)} style={{backgroundColor: selectedImage.innerCircle, color: "white" }} onClick={() => loco.scrollTo("#about")}>
+            <button className={cn("rounded-full flex gap-3 px-4 py-2   items-center justify-center", `bg-[${selectedImage.blurCircle}]`)} style={{ backgroundColor: selectedImage.innerCircle, color: "white" }} onClick={() => loco.scrollTo("#about")}>
               <Warehouse className="size-4" />About
             </button>
           </div>
@@ -181,8 +173,8 @@ function Home() {
 
         <div
           className="aspect-square  min-h-[50%] sm:min-h-[26rem] h-[40dvh] lg:h-[50dvh] xl:h-[70dvh] max-h-[600px] relative flex items-center justify-center z-20"
-          data-scroll
-          data-scroll-speed="-.1"
+          data-scroll={isLocoEnabled}
+          data-scroll-speed={isLocoEnabled?"-.1":"0"}
         >
           <div
             className="absolute w-[150%] h-[150%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full -z-0"
@@ -267,8 +259,8 @@ function Home() {
         </div>
         <div
           className="w-full lg:w-fit px-5 lg:px-0 relative z-10 sm:-translate-y-full"
-          data-scroll
-          data-scroll-speed=".1"
+          data-scroll={isLocoEnabled}
+          data-scroll-speed={isLocoEnabled?".1":"0"}
         >
           <h2 className="text-3xl md:text-4xl font-sembold">As Fun as New</h2>
           <h2 className="text-4xl md:text-5xl font-bold">
@@ -393,7 +385,7 @@ function Home() {
           }}
         />
         <div className="min-h-screen flex items-center justify-center p-3 md:p-6 font-sans relative z-10">
-          <div className="  rounded-lg sm:p-4 lg:p-8 flex lg:w-fit w-full items-center gap-10 mt-6">
+          <div className="  rounded-lg sm:p-4 lg:p-8 flex lg:w-fit w-full items-center justify-center gap-10 mt-6">
             <Image
               src="/Customer Service.svg"
               alt=""
