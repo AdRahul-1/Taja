@@ -1,4 +1,4 @@
-name: CI/CD — WB Digital Sahayak
+name: CI/CD — TAJA
 
 on:
   push:
