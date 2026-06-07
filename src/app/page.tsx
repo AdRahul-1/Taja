@@ -165,7 +165,7 @@ function Home() {
               <Headset className="size-4" />Contact
 
             </button>
-            <button className={cn("rounded-full flex gap-3 px-4 py-2   items-center justify-center", `bg-[${selectedImage.blurCircle}]`)} style={{ backgroundColor: selectedImage.innerCircle, color: "white" }} onClick={() => loco.scrollTo("#about")}>
+            <button className={cn("rounded-full flex gap-3 px-4 py-2   items-center justify-center bg-white")} style={{ color: selectedImage.innerCircle }} onClick={() => loco.scrollTo("#about")}>
               <Warehouse className="size-4" />About
             </button>
           </div>

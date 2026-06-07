@@ -10,7 +10,7 @@ export async function POST(req:Request) {
 
     const { data, error } = await resend.emails.send({
       from: 'RR Food Products <noreply@rrfoodproducts.com>',
-      to: ['rrfoodproducts09@gmail.com'],
+      to: [process.env.MAIL_TO as string],
       subject: 'Hello world',
       react: EmailTemplate({...body}),
     });
