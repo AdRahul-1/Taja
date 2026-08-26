@@ -14,9 +14,25 @@ function DrawerComp({
 }) {
 	const [selected, setSelected] = useState(0);
 	const [open, setOpen] = useState(false);
+
+	const preloadDrawerImages = () => {
+		if (typeof window !== "undefined") {
+			itemsArray.forEach((item) => {
+				const img = new window.Image();
+				img.src = item.url;
+			});
+		}
+	};
+
 	return (
 		<Drawer onOpenChange={setOpen}>
-			<DrawerTrigger>{children}</DrawerTrigger>
+			<DrawerTrigger
+				onMouseEnter={preloadDrawerImages}
+				onTouchStart={preloadDrawerImages}
+				onFocus={preloadDrawerImages}
+			>
+				{children}
+			</DrawerTrigger>
 			<DrawerContent
 				className={`${jockeyOne.className} border-0 transition-all duration-300 ease-in-out rounded-t-3xl`}
 				style={{ backgroundColor: itemsArray[selected].theme }}
@@ -37,13 +53,18 @@ function DrawerComp({
 									}`}
 									key={index}
 								>
-									<div className="absolute inset-0 top-0 left-0">
+									<div className="absolute inset-0 top-0 left-0 flex items-center justify-center">
+										{selected === index && (
+											<div className="size-10 rounded-full border-2 border-white/20 border-t-white animate-spin absolute" />
+										)}
 										<Image
 											src={item.url}
 											alt={item.title}
-											width={200}
-											height={200}
-											className={`w-full h-full object-contain ${
+											width={320}
+											height={400}
+											priority
+											sizes="(max-width: 768px) 280px, 320px"
+											className={`w-full h-full object-contain relative z-10 ${
 												selected === index && "image-shadow"
 											} `}
 										/>

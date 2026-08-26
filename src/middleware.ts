@@ -5,11 +5,10 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get("host") || "";
   const hostname = host.split(":")[0].toLowerCase();
 
-  // Redirect alias/secondary domain and www variants to canonical https://rrfoodproducts.com
+  // Redirect alias/secondary domain (tajachanachur.in) to primary domain https://rrfoodproducts.com
   if (
     hostname === "tajachanachur.in" ||
-    hostname === "www.tajachanachur.in" ||
-    hostname === "www.rrfoodproducts.com"
+    hostname === "www.tajachanachur.in"
   ) {
     const redirectUrl = new URL(
       request.nextUrl.pathname + request.nextUrl.search,
@@ -18,7 +17,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl, 301);
   }
 
-  // Canonical domain (rrfoodproducts.com), localhost, and preview URLs pass through normally
+  // Allow rrfoodproducts.com, www.rrfoodproducts.com, localhost, and preview URLs
   return NextResponse.next();
 }
 
@@ -29,7 +28,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - static image extensions (svg, png, jpg, jpeg, gif, webp, avif)
      */
-    "/((?!_next/static|_next/image|favicon.ico).*)",
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico)$).*)",
   ],
 };

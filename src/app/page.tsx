@@ -392,7 +392,7 @@ function Home() {
         className="size-6 md:size-10 xl:size-12 drop-shadow-lg fixed top-4 right-4 z-50"
       ></Image>
 
-      <section className="relative flex items-center justify-between flex-col lg:flex-row lg:p-12 xl:p-20 gap-32 sm:gap-24 h-fit lg:h-dvh lg:gap-0"
+      <section className="relative flex items-center justify-between flex-col lg:flex-row lg:p-12 xl:p-16 gap-32 sm:gap-24 h-fit lg:h-dvh lg:gap-0"
         style={{ backgroundColor: selectedImage.bgColor }}
       >
         <div
@@ -414,16 +414,16 @@ function Home() {
         </div>
 
         <div
-          className="translate-y-[30%] text-center lg:text-left mt-20 lg:mt-0 z-50 lg:z-20"
+          className="translate-y-[30%] text-center lg:text-left mt-20 lg:mt-0 z-50 relative lg:z-50"
           data-hero-text
         >
           <h1
-            className={`text-6xl font-medium ${kalnia.className} leading-none stoke-text`}
+            className={`text-2xl sm:text-4xl lg:text-5xl lg:text-6xl font-medium ${kalnia.className} leading-none stoke-text`}
           >
             Taja Chanachur &amp; <br />
             Authentic Tea-Time Snacks
           </h1>
-          <p className="text-xl md:text-2xl mt-1 lg:mt-5">Your evening partner, now more crispier</p>
+          <p className="text-lg md:text-xl mt-1 lg:mt-5">Your evening partner, now more crispier</p>
 
           <div className="flex gap-4 mt-5 justify-center sm:justify-start relative text-sm" data-buttons>
             <button className="flex gap-3 px-4 py-2 border border-white/50 rounded-full  items-center justify-center" onClick={() => loco.scrollTo("#contact")}>
@@ -466,7 +466,7 @@ function Home() {
               width={800}
               height={800}
               priority
-              placeholder={selectedImage.image ? "blur" : "empty"}
+              // placeholder={selectedImage.image ? "blur" : "empty"}
               sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 600px"
               onLoad={() => setImageLoaded(true)}
             />
