@@ -25,92 +25,144 @@ gsap.registerPlugin(useGSAP);
 
 
 function Home() {
-  const [isLocoEnabled, setIsLocoEnabled] = useState(window.innerWidth >= 768);
+  const [isLocoEnabled, setIsLocoEnabled] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const loco = new LocomotiveScroll();
-  useEffect(() => {
-    const handleResize = () => {
-      const shouldEnableLoco = window.innerWidth >= 768;
-      setIsLocoEnabled(shouldEnableLoco);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      loco.destroy();
-    };
-  }, []);
-
+  const locoRef = useRef<LocomotiveScroll | null>(null);
   const store = useAnimationStore();
   const main = useRef<HTMLElement>(null);
 
-  // Smooth bounce animation for hero pack without hiding the initial image on page load
   useEffect(() => {
-    if (store.animations) return;
-    gsap.fromTo(
-      "[data-display-image]",
-      { scale: 1.3 },
-      {
-        scale: 1,
-        ease: "bounce",
-        duration: 1.4,
-      }
-    );
-  }, [store.animations]);
+    let locoInstance: LocomotiveScroll | null = null;
 
-  useGSAP(() => {
-    if (store.animations) {
-      return;
+    const initScroll = () => {
+      if (typeof window !== "undefined" && window.innerWidth >= 768) {
+        locoInstance = new LocomotiveScroll({
+          lenisOptions: {
+            lerp: 0.08,
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 1.5,
+          },
+        });
+        locoRef.current = locoInstance;
+        setIsLocoEnabled(true);
+      } else {
+        setIsLocoEnabled(false);
+      }
+    };
+
+    initScroll();
+
+    const handleResize = () => {
+      const isDesktop = window.innerWidth >= 768;
+      setIsLocoEnabled(isDesktop);
+      if (isDesktop && !locoRef.current) {
+        locoInstance = new LocomotiveScroll({
+          lenisOptions: {
+            lerp: 0.08,
+            smoothWheel: true,
+          },
+        });
+        locoRef.current = locoInstance;
+      } else if (!isDesktop && locoRef.current) {
+        locoRef.current.destroy();
+        locoRef.current = null;
+        locoInstance = null;
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (locoRef.current) {
+        locoRef.current.destroy();
+        locoRef.current = null;
+      }
+    };
+  }, []);
+
+  const scrollToSection = (target: string) => {
+    if (locoRef.current) {
+      locoRef.current.scrollTo(target);
+    } else {
+      const el = document.querySelector(target);
+      el?.scrollIntoView({ behavior: "smooth" });
     }
-    gsap.context(() => {
-      gsap.from("[data-ring-circles]", {
+  };
+
+  useGSAP(
+    () => {
+      if (store.animations) return;
+
+      const tl = gsap.timeline({
+        defaults: { force3D: true, ease: "power3.out" },
+      });
+
+      // Background ambient ring circles expand smoothly
+      tl.from("[data-ring-circles]", {
         scale: 0,
         opacity: 0,
-        ease: "expo.out",
-        duration: 1.8,
-      });
-      const t1 = gsap.timeline();
-      t1.from("[data-taja-text]>span", {
-        x: "-50%",
+        duration: 1.4,
+        ease: "power3.out",
+        force3D: true,
+      }, 0);
+
+      // Hero pack scales in with a soft, natural settle (no violent bounce)
+      tl.from("[data-display-image]", {
+        scale: 1.25,
         opacity: 0,
-        // ease: "power2.out",
-        duration: 1,
-        stagger: 0.2,
-      });
-      t1.from("[data-hero-text]>h1", {
-        y: "-50%",
+        duration: 1.3,
+        ease: "back.out(1.2)",
+        force3D: true,
+      }, 0.1);
+
+      // Background decorative "TAJA" letters stagger in cleanly
+      tl.from("[data-taja-text]>span", {
+        y: 50,
         opacity: 0,
-        // ease: "power2.out",
-        duration: 1,
-        stagger: 0.2,
-        delay: -.3,
-      }, "a");
-      t1.from("[data-hero-text]>p", {
-        y: "-50%",
+        duration: 0.9,
+        stagger: 0.08,
+        force3D: true,
+      }, 0.2);
+
+      // Headline and subtext
+      tl.from("[data-hero-text]>h1", {
+        y: 35,
         opacity: 0,
-        // ease: "power2.out",
-        duration: 1,
-        stagger: 0.2,
-      }, "a");
-      t1.from("[data-buttons]", {
-        y: "100%",
+        duration: 0.9,
+        force3D: true,
+      }, 0.35);
+
+      tl.from("[data-hero-text]>p", {
+        y: 25,
         opacity: 0,
-        // ease: "power2.out",
-        duration: 1,
-        delay: -.2,
-        stagger: 0.2,
+        duration: 0.8,
+        force3D: true,
+      }, 0.5);
+
+      // Action buttons
+      tl.from("[data-buttons]", {
+        y: 25,
+        opacity: 0,
+        duration: 0.8,
+        force3D: true,
         onComplete: () => {
           store.setAnimation();
         },
-      });
-      gsap.from("[data-display-items] > div", {
-        y: "100%",
+      }, 0.6);
+
+      // Drawer pack thumbnails
+      tl.from("[data-display-items] > div", {
+        y: 40,
         opacity: 0,
-        // ease: "expo.out",
-        duration: 2.5,
-        stagger: 0.45,
-      });
-    }, main);
-  }, []);
+        duration: 1.1,
+        stagger: 0.08,
+        force3D: true,
+      }, 0.45);
+    },
+    { scope: main }
+  );
 
   const productsJsonLd = {
     "@context": "https://schema.org",
@@ -392,13 +444,14 @@ function Home() {
         className="size-6 md:size-10 xl:size-12 drop-shadow-lg fixed top-4 right-4 z-50"
       ></Image>
 
-      <section className="relative flex items-center justify-between flex-col lg:flex-row lg:p-12 xl:p-16 gap-32 sm:gap-24 h-fit lg:h-dvh lg:gap-0"
+      <section
+        className="relative flex items-center justify-between flex-col lg:flex-row lg:p-12 xl:p-16 gap-32 sm:gap-24 h-fit lg:h-dvh lg:gap-0"
         style={{ backgroundColor: selectedImage.bgColor }}
       >
         <div
-          className="absolute top-10 xl:top-0 left-1/2 xl:left-10"
+          className="absolute top-10 xl:top-0 left-1/2 xl:left-10 will-change-transform"
           data-scroll={isLocoEnabled}
-          data-scroll-speed={isLocoEnabled?".3":"0"}
+          data-scroll-speed={isLocoEnabled ? ".3" : "0"}
         >
           <div className="-translate-x-1/2 sm:-translate-x-2/3 xl:-translate-x-0 opacity-10">
             <div
@@ -407,14 +460,16 @@ function Home() {
               data-taja-text
             >
               {"TAJA".split("").map((char, index) => (
-                <span key={index}>{char}</span>
+                <span key={index} className="inline-block will-change-transform">
+                  {char}
+                </span>
               ))}
             </div>
           </div>
         </div>
 
         <div
-          className="translate-y-[30%] text-center lg:text-left mt-20 lg:mt-0 z-50 relative lg:z-50"
+          className="translate-y-[30%] text-center lg:text-left mt-20 lg:mt-0 z-30 relative lg:z-50 will-change-transform"
           data-hero-text
         >
           <h1
@@ -423,34 +478,54 @@ function Home() {
             Taja Chanachur &amp; <br />
             Authentic Tea-Time Snacks
           </h1>
-          <p className="text-lg md:text-xl mt-1 lg:mt-5">Your evening partner, now more crispier</p>
+          <p className="text-lg md:text-xl mt-1 lg:mt-5">
+            Your evening partner, now more crispier
+          </p>
 
-          <div className="flex gap-4 mt-5 justify-center sm:justify-start relative text-sm" data-buttons>
-            <button className="flex gap-3 px-4 py-2 border border-white/50 rounded-full  items-center justify-center" onClick={() => loco.scrollTo("#contact")}>
-
-              <Headset className="size-4" />Contact
-
+          <div
+            className="flex gap-4 mt-5 justify-center sm:justify-start relative text-sm"
+            data-buttons
+          >
+            <button
+              className="flex gap-3 px-4 py-2 border border-white/50 rounded-full items-center justify-center hover:bg-white/10 transition-colors"
+              onClick={() => scrollToSection("#contact")}
+            >
+              <Headset className="size-4" />
+              Contact
             </button>
-            <button className={cn("rounded-full flex gap-3 px-4 py-2   items-center justify-center bg-white")} style={{ color: selectedImage.innerCircle }} onClick={() => loco.scrollTo("#about")}>
-              <Warehouse className="size-4" />About
+            <button
+              className={cn(
+                "rounded-full flex gap-3 px-4 py-2 items-center justify-center bg-white hover:bg-white/90 transition-colors"
+              )}
+              style={{ color: selectedImage.innerCircle }}
+              onClick={() => scrollToSection("#about")}
+            >
+              <Warehouse className="size-4" />
+              About
             </button>
           </div>
         </div>
 
         <div
-          className="aspect-square  min-h-[50%] sm:min-h-[26rem] h-[40dvh] lg:h-[50dvh] xl:h-[70dvh] max-h-[600px] relative flex items-center justify-center z-20"
+          className="aspect-square min-h-[50%] sm:min-h-[26rem] h-[40dvh] lg:h-[50dvh] xl:h-[70dvh] max-h-[600px] relative flex items-center justify-center z-20 will-change-transform"
           data-scroll={isLocoEnabled}
-          data-scroll-speed={isLocoEnabled?"-.1":"0"}
+          data-scroll-speed={isLocoEnabled ? "-.1" : "0"}
         >
           <div
-            className="absolute w-[150%] h-[150%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full -z-0"
+            className="absolute w-[140%] h-[140%] top-1/2 left-1/2 rounded-full -z-0 pointer-events-none"
             style={{
               backgroundColor: selectedImage.blurCircle,
-              filter: "blur(100px)",
+              filter: "blur(60px)",
+              transform: "translate3d(-50%, -50%, 0)",
+              willChange: "transform",
+              backfaceVisibility: "hidden",
             }}
           ></div>
 
-          <div className="absolute inset-0 z-0" data-ring-circles>
+          <div
+            className="absolute inset-0 z-0 will-change-transform"
+            data-ring-circles
+          >
             <div className="absolute w-[calc(100%+5rem)] h-[calc(100%+5rem)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 rounded-full"></div>
             <div
               className="absolute w-[calc(100%-3rem)] h-[calc(100%-3rem)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
@@ -458,7 +533,10 @@ function Home() {
             />
           </div>
 
-          <div className="absolute inset-0 z-30" data-display-image>
+          <div
+            className="absolute inset-0 z-30 will-change-transform"
+            data-display-image
+          >
             <Image
               src={selectedImage.image || selectedImage.url}
               alt={selectedImage.alt || "Taja Chanachur Pack"}
@@ -466,7 +544,7 @@ function Home() {
               width={800}
               height={800}
               priority
-              // placeholder={selectedImage.image ? "blur" : "empty"}
+              placeholder={selectedImage.image ? "blur" : "empty"}
               sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 600px"
               onLoad={() => setImageLoaded(true)}
             />
