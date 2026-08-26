@@ -1,15 +1,22 @@
+import heroMisti from "../../public/10_rs_misti_new.webp";
+import heroJhal from "../../public/10_rs_jhal_red_new.webp";
+
 export const mainImage = [
 	{
 		url: "/10_rs_misti_new.webp",
+		image: heroMisti,
 		bgColor: "#20C46B",
 		innerCircle: "#12B045",
 		blurCircle: "#49FF9C",
+		alt: "Taja Chanachur Tak Jhal Misti Pack",
 	},
 	{
 		url: "/10_rs_jhal_red_new.webp",
+		image: heroJhal,
 		bgColor: "#B51E1E",
 		innerCircle: "#CF3737",
 		blurCircle: "#FF6470",
+		alt: "Taja Chanachur Special Jhal Pack",
 	},
 ];
 

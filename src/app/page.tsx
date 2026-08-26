@@ -26,6 +26,7 @@ gsap.registerPlugin(useGSAP);
 
 function Home() {
   const [isLocoEnabled, setIsLocoEnabled] = useState(window.innerWidth >= 768);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const loco = new LocomotiveScroll();
   useEffect(() => {
     const handleResize = () => {
@@ -42,6 +43,20 @@ function Home() {
   const store = useAnimationStore();
   const main = useRef<HTMLElement>(null);
 
+  // Smooth bounce animation for hero pack without hiding the initial image on page load
+  useEffect(() => {
+    if (store.animations) return;
+    gsap.fromTo(
+      "[data-display-image]",
+      { scale: 1.3 },
+      {
+        scale: 1,
+        ease: "bounce",
+        duration: 1.4,
+      }
+    );
+  }, [store.animations]);
+
   useGSAP(() => {
     if (store.animations) {
       return;
@@ -52,13 +67,6 @@ function Home() {
         opacity: 0,
         ease: "expo.out",
         duration: 1.8,
-      });
-      gsap.from("[data-display-image]", {
-        scale: 1.8,
-        opacity: 0,
-        ease: "bounce",
-        duration: 1.5,
-        delay: 0.1,
       });
       const t1 = gsap.timeline();
       t1.from("[data-taja-text]>span", {
@@ -104,18 +112,274 @@ function Home() {
     }, main);
   }, []);
 
+  const productsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Taja Chanachur Product Line",
+    description:
+      "Authentic crispy Bengali chanachur and traditional tea-time snacks crafted by R.R. Food Products in Raniganj, West Bengal.",
+    itemListElement: [
+      {
+        "@type": "Product",
+        position: 1,
+        name: "Taja Chanachur - Pocket Buddy (Special Jhal)",
+        description: "Crispy and spicy authentic Bengali chanachur in a 50g pocket pack.",
+        image: "https://rrfoodproducts.com/10_rs_jhal_old.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "10",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 2,
+        name: "Taja Chanachur - Pocket Buddy (Tak Jhal Misti)",
+        description: "Sweet, tangy, and spicy Bengali chanachur in a 50g pocket pack.",
+        image: "https://rrfoodproducts.com/10_rs_misti_old.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "10",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 3,
+        name: "Taja Chanachur - Big Brother (Special Jhal)",
+        description: "Crispy and spicy traditional chanachur in a 150g pack.",
+        image: "https://rrfoodproducts.com/150_jhal.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "35",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 4,
+        name: "Taja Chanachur - Big Brother (Tak Jhal Misti)",
+        description: "Sweet, sour, and spicy traditional chanachur in a 150g pack.",
+        image: "https://rrfoodproducts.com/150_misti.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "35",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 5,
+        name: "Taja Chanachur - Family Pack (Special Jhal)",
+        description: "Crispy spicy chanachur for family tea time in a 400g pack.",
+        image: "https://rrfoodproducts.com/400_jhal.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "90",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 6,
+        name: "Taja Chanachur - Family Pack (Tak Jhal Misti)",
+        description: "Flavorful sweet and spicy chanachur for family tea time in a 400g pack.",
+        image: "https://rrfoodproducts.com/400_misti.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "90",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 7,
+        name: "Taja Chanachur - Jumbo Pack (Tak Jhal Misti)",
+        description: "Generous 500g jumbo pack of sweet, sour, and spicy Taja Chanachur.",
+        image: "https://rrfoodproducts.com/500_msti.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "90",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 8,
+        name: "Taja Chanachur - Jumbo Pack (Special Jhal)",
+        description: "Generous 500g jumbo pack of crispy spicy Taja Chanachur.",
+        image: "https://rrfoodproducts.com/500_jhal.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "90",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 9,
+        name: "Taja Chanachur - Pocket Pack (Tak Jhal Misti)",
+        description: "Convenient 25g on-the-go pocket snack pack.",
+        image: "https://rrfoodproducts.com/5_rs_misti_new.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "5",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 10,
+        name: "Taja Chanachur - Pocket Pack (Special Jhal)",
+        description: "Convenient 25g on-the-go crispy spicy pocket snack pack.",
+        image: "https://rrfoodproducts.com/5_rs_jhal_red.webp",
+        category: "Snacks > Chanachur",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "5",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+      {
+        "@type": "Product",
+        position: 11,
+        name: "Taja Special Masala Chira",
+        description: "Crispy spiced flattened rice tea-time snack.",
+        image: "https://rrfoodproducts.com/Chira.webp",
+        category: "Snacks > Chira",
+        brand: {
+          "@type": "Brand",
+          name: "Taja Chanachur",
+        },
+        manufacturer: {
+          "@id": "https://rrfoodproducts.com/#organization",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "10",
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+          url: "https://rrfoodproducts.com",
+        },
+      },
+    ],
+  };
+
   return (
     <main
       className="min-h-dvh text-white max-w-[100vw] overflow-x-hidden relative z-0"
       ref={main}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productsJsonLd) }}
+      />
       <div className="w-16 xl:w-48 h-12 xl:h-[8rem] fixed top-3 xl:top-4 left-4 z-50">
         <Image
-          src={"/taja.png"}
+          src={"/taja.webp"}
           height={500}
           width={500}
           priority
-          alt="rr"
+          alt="Taja Chanachur"
           className="w-full h-full drop-shadow-lg "
         ></Image>
       </div>
@@ -124,7 +388,7 @@ function Home() {
         height={100}
         width={100}
         priority
-        alt="rr"
+        alt="R.R. Food Products"
         className="size-6 md:size-10 xl:size-12 drop-shadow-lg fixed top-4 right-4 z-50"
       ></Image>
 
@@ -137,14 +401,15 @@ function Home() {
           data-scroll-speed={isLocoEnabled?".3":"0"}
         >
           <div className="-translate-x-1/2 sm:-translate-x-2/3 xl:-translate-x-0 opacity-10">
-            <h1
-              className={`tracking-wide font-bold flex xl:-rotate-[20deg] ${jockeyOne.className} text-[13rem] lg:text-[23rem] xl:text-[27rem] `}
+            <div
+              aria-hidden="true"
+              className={`tracking-wide font-bold flex xl:-rotate-[20deg] ${jockeyOne.className} text-[13rem] lg:text-[23rem] xl:text-[27rem] select-none`}
               data-taja-text
             >
               {"TAJA".split("").map((char, index) => (
                 <span key={index}>{char}</span>
               ))}
-            </h1>
+            </div>
           </div>
         </div>
 
@@ -155,9 +420,10 @@ function Home() {
           <h1
             className={`text-6xl font-medium ${kalnia.className} leading-none stoke-text`}
           >
-            Your evening <br /> partner
+            Taja Chanachur &amp; <br />
+            Authentic Tea-Time Snacks
           </h1>
-          <p className="text-xl md:text-2xl mt-1 lg:mt-5">Now more crispier</p>
+          <p className="text-xl md:text-2xl mt-1 lg:mt-5">Your evening partner, now more crispier</p>
 
           <div className="flex gap-4 mt-5 justify-center sm:justify-start relative text-sm" data-buttons>
             <button className="flex gap-3 px-4 py-2 border border-white/50 rounded-full  items-center justify-center" onClick={() => loco.scrollTo("#contact")}>
@@ -194,12 +460,15 @@ function Home() {
 
           <div className="absolute inset-0 z-30" data-display-image>
             <Image
-              src={selectedImage.url}
-              alt="mainImage"
+              src={selectedImage.image || selectedImage.url}
+              alt={selectedImage.alt || "Taja Chanachur Pack"}
               className="w-full h-full object-contain -rotate-6 filter image-shadow"
               width={800}
               height={800}
               priority
+              placeholder={selectedImage.image ? "blur" : "empty"}
+              sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 600px"
+              onLoad={() => setImageLoaded(true)}
             />
             <div className="absolute top-0 left-0 w-full h-full z-10 -rotate-6"></div>
           </div>
@@ -222,10 +491,11 @@ function Home() {
                     <div className="absolute top-0 left-0 w-full h-full z-10"></div>
                     <Image
                       src={item[0].url}
-                      alt={item[0].title}
+                      alt={`Taja Chanachur ${item[0].title} (${item[0].flavor})`}
                       width={100}
                       height={100}
                       priority
+                      sizes="(max-width: 768px) 80px, 112px"
                       className="w-full h-full object-contain hover:drop-shadow-xl image-shadow-sm transition-all duration-300 ease-in-out hover:scale-110 cursor-pointer"
                     />
                   </div>
@@ -249,10 +519,11 @@ function Home() {
         />
         <div className="w-[90%] md:h-[35dvh] lg:h-[70dvh] lg:w-1/2 m-auto lg:m-0 relative z-10">
           <Image
-            src={"/Chira.png"}
-            alt="Charaimge"
+            src={"/Chira.webp"}
+            alt="Special Masala Chira"
             width={1000}
             height={1000}
+            sizes="(max-width: 768px) 90vw, 50vw"
             className="w-full h-full object-contain image-shadow-sm"
           />
           <div className="absolute top-0 left-0 w-full h-full z-10"></div>
@@ -292,9 +563,9 @@ function Home() {
 
         <div className=" py-14 px-6 relative z-10">
           <div className="max-w-7xl mx-auto ">
-            <h1 className="text-4xl font-bold text-gray-800 text-center mb-4">
+            <h2 className="text-4xl font-bold text-gray-800 text-center mb-4">
               About Us
-            </h1>
+            </h2>
             <p className="text-lg text-gray-600 text-center mb-8">
               Since 2009, we have been crafting the finest tea-time snacks with a
               passion for quality and a dedication to customer satisfaction.
@@ -305,7 +576,7 @@ function Home() {
               <div>
                 <Image
                   src="/ABOUT.webp"
-                  alt="Tea Time Snacks"
+                  alt="Tea Time Snacks - R.R. Food Products Raniganj"
                   className="rounded-lg shadow-md"
                   width={500}
                   height={500}
@@ -388,15 +659,15 @@ function Home() {
           <div className="  rounded-lg sm:p-4 lg:p-8 flex lg:w-fit w-full items-center justify-center gap-10 mt-6">
             <Image
               src="/Customer Service.svg"
-              alt=""
+              alt="Customer Service - R.R. Food Products"
               width={400}
               height={400}
               className=" w-96 h-96 object-contain md:block hidden"
             ></Image>
             <div className="text-black">
-              <h1 className="text-2xl font-semibold text-gray-800 text-center">
+              <h2 className="text-2xl font-semibold text-gray-800 text-center">
                 Contact Us
-              </h1>
+              </h2>
               <p className="text-gray-600 text-center mb-6">
                 We{`'`}d love to hear from you! Please fill out the form below.
               </p>
