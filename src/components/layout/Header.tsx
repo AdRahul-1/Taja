@@ -16,7 +16,7 @@ export default function Header({ onOpenDistributorModal }: HeaderProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -32,30 +32,30 @@ export default function Header({ onOpenDistributorModal }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-navy-950/90 backdrop-blur-md border-b border-gold/20 py-3 shadow-lg"
-          : "bg-gradient-to-b from-navy-950/80 to-transparent py-5"
+          ? "bg-cream-50/95 backdrop-blur-xl border-b border-gold/40 py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
+          : "bg-transparent py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo & Bengali Companion */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0">
+          <div className="relative w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0">
             <Image
               src="/taja.webp"
               alt="Taja Chanachur Logo"
               width={80}
               height={80}
               priority
-              className="object-contain w-full h-full drop-shadow-md group-hover:scale-105 transition-transform"
+              className="object-contain w-full h-full drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-cream-50 group-hover:text-gold transition-colors leading-tight">
+            <span className="font-serif text-base sm:text-lg font-bold tracking-tight text-espresso-900 group-hover:text-heritageRed transition-colors leading-tight">
               TAJA CHANACHUR
             </span>
-            <span className="font-bengaliDisplay text-xs text-gold/90 font-medium tracking-wide">
+            <span className="font-bengaliDisplay text-[11px] text-heritageRed font-semibold tracking-wide">
               খাঁটি সন্ধ্যার আড্ডা • ২০০৯ থেকে
             </span>
           </div>
@@ -67,10 +67,10 @@ export default function Header({ onOpenDistributorModal }: HeaderProps) {
             <Link
               key={link.href}
               href={link.href}
-              className="text-xs uppercase tracking-widest text-cream-50/80 hover:text-gold transition-colors font-medium relative py-1 group"
+              className="text-xs uppercase tracking-widest text-espresso-800 hover:text-heritageRed transition-colors font-bold relative py-1 group"
             >
               <span>{link.label}</span>
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-heritageRed transition-all duration-300 group-hover:w-full"></span>
             </Link>
           ))}
         </nav>
@@ -87,15 +87,15 @@ export default function Header({ onOpenDistributorModal }: HeaderProps) {
                 el?.scrollIntoView({ behavior: "smooth" });
               }
             }}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gold/50 text-gold text-xs font-semibold tracking-wider uppercase hover:bg-gold/10 transition-all shadow-sm"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-navy-900/30 text-navy-900 text-xs font-bold tracking-wider uppercase hover:bg-navy-900 hover:text-cream-50 transition-all shadow-sm backdrop-blur-sm cursor-pointer"
           >
             <Building2 className="w-3.5 h-3.5" />
-            <span>Distributor Portal</span>
+            <span>Wholesale</span>
           </button>
 
           <Link
             href="#contact"
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-heritageRed text-cream-50 text-xs font-semibold tracking-wider uppercase hover:bg-heritageRed-hover transition-all shadow-md shadow-heritageRed/25"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-heritageRed text-cream-50 text-xs font-bold tracking-wider uppercase hover:bg-heritageRed-hover transition-all shadow-md shadow-heritageRed/25 cursor-pointer"
           >
             <PhoneCall className="w-3.5 h-3.5" />
             <span>Contact</span>
@@ -106,7 +106,7 @@ export default function Header({ onOpenDistributorModal }: HeaderProps) {
         <div className="flex md:hidden items-center gap-2">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-cream-50 hover:text-gold transition-colors focus:outline-none"
+            className="p-2 text-espresso-900 hover:text-heritageRed transition-colors focus:outline-none"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -116,17 +116,17 @@ export default function Header({ onOpenDistributorModal }: HeaderProps) {
 
       {/* Mobile Slide-Down Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-navy-950/98 border-b border-gold/30 px-6 py-6 space-y-4 animate-in slide-in-from-top-4 duration-200">
+        <div className="md:hidden bg-cream-50/98 backdrop-blur-2xl border-b border-gold/40 px-6 py-6 space-y-4 shadow-xl animate-in slide-in-from-top-4 duration-200">
           <div className="flex flex-col space-y-3">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-medium tracking-wider text-cream-50/90 hover:text-gold py-2 border-b border-white/5 flex items-center justify-between"
+                className="text-sm font-semibold tracking-wider text-espresso-900 hover:text-heritageRed py-2 border-b border-gold/20 flex items-center justify-between"
               >
                 <span>{link.label}</span>
-                <span className="font-bengaliDisplay text-xs text-gold/70">{link.labelBn}</span>
+                <span className="font-bengaliDisplay text-xs text-heritageRed font-medium">{link.labelBn}</span>
               </Link>
             ))}
           </div>
@@ -139,18 +139,18 @@ export default function Header({ onOpenDistributorModal }: HeaderProps) {
                 const el = document.getElementById("distributor-form");
                 el?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border border-gold/60 text-gold text-xs font-semibold tracking-wider uppercase"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border border-navy-900 text-navy-900 text-xs font-bold tracking-wider uppercase hover:bg-navy-900 hover:text-cream-50 transition-colors"
             >
               <Building2 className="w-4 h-4" />
-              <span>Bulk & Distributor Enquiries</span>
+              <span>Wholesale</span>
             </button>
             <Link
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-heritageRed text-cream-50 text-xs font-semibold tracking-wider uppercase text-center"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-heritageRed text-cream-50 text-xs font-bold tracking-wider uppercase text-center"
             >
               <PhoneCall className="w-4 h-4" />
-              <span>Contact Us</span>
+              <span>Contact</span>
             </Link>
           </div>
         </div>

@@ -1,7 +1,5 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://rrfoodproducts.com";
-
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
@@ -9,6 +7,10 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: `${BASE_URL}/sitemap.xml`,
+    sitemap: [
+      "https://rrfoodproducts.com/sitemap.xml",
+      "https://tajachanachur.in/sitemap.xml",
+      "https://tajachanachur.com/sitemap.xml",
+    ],
   };
 }

@@ -4,31 +4,47 @@
 
 :root {
   --navy-900: #142B54;
-  --cream-50: #FBF3E7;
+  --cream-50: #FAF4E8;
   --heritage-red: #B91C1C;
   --gold-500: #C9982E;
   --espresso-900: #241C15;
 
-  --background: 40 60% 98%; /* warm cream */
+  --background: 40 50% 96%; /* warm off-white / yellowish parchment */
   --foreground: 28 26% 11%; /* espresso brown */
-  --card: 40 60% 98%;
+  --card: 40 50% 97%;
   --card-foreground: 28 26% 11%;
-  --popover: 40 60% 98%;
+  --popover: 40 50% 97%;
   --popover-foreground: 28 26% 11%;
   --primary: 0 74% 42%; /* heritage red */
-  --primary-foreground: 40 60% 98%;
+  --primary-foreground: 40 50% 96%;
   --secondary: 219 61% 21%; /* deep navy */
-  --secondary-foreground: 40 60% 98%;
+  --secondary-foreground: 40 50% 96%;
   --muted: 40 25% 90%;
   --muted-foreground: 28 15% 40%;
   --accent: 42 62% 49%; /* gold */
   --accent-foreground: 219 61% 21%;
   --destructive: 0 74% 42%;
-  --destructive-foreground: 40 60% 98%;
+  --destructive-foreground: 40 50% 96%;
   --border: 40 20% 85%;
   --input: 40 20% 85%;
   --ring: 42 62% 49%;
   --radius: 0.5rem;
+}
+
+/* Hide scrollbar sitewide across all browsers (Chrome, Edge, Safari, Firefox) */
+html,
+body {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
 }
 
 /* Custom Lenis Smooth Scroll Configuration */
@@ -52,16 +68,9 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
-/* Hide scrollbar cleanly */
-body::-webkit-scrollbar {
-  display: none;
-}
-
 body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  background-color: #142B54;
-  color: #FBF3E7;
+  background-color: #FAF4E8;
+  color: #241C15;
   font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
@@ -108,20 +117,50 @@ body {
 
 /* Drop shadows */
 .pack-shadow {
-  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.25));
 }
 
 .pack-shadow-lg {
-  filter: drop-shadow(0 35px 35px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 35px 35px rgba(0, 0, 0, 0.35));
 }
 
 /* Custom selection styling */
 ::selection {
   background-color: #C9982E;
-  color: #142B54;
+  color: #241C15;
+}
+
+/* Product Image Anti-Theft & Copy Protection Layer */
+.protected-image-layer {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  pointer-events: none !important;
+}
+
+.img-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  user-select: none;
+  -webkit-user-select: none;
+  background: transparent;
 }
 
 /* Kadai Motifs and Handful scatter */
 .kadai-emboss {
   background: radial-gradient(circle at 50% 120%, rgba(201, 152, 46, 0.15), transparent 70%);
+}
+
+/* Native CSS View Transitions Styling for Shelf Filtering */
+::view-transition-group(*) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 0.35s;
 }

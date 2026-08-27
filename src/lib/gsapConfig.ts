@@ -8,6 +8,12 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, Flip, CustomEase);
   // Register the strict brandEase: cubic-bezier(0.65, 0, 0.35, 1)
   CustomEase.create("brandEase", "0.65, 0, 0.35, 1");
+
+  // Rock-solid configuration for Hot Module Reloading (HMR) and mobile browsers
+  ScrollTrigger.config({
+    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
+    ignoreMobileResize: true,
+  });
 }
 
 /**

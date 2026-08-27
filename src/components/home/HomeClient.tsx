@@ -11,8 +11,9 @@ import IngredientsSection from "@/components/sections/IngredientsSection";
 import ShelfSection from "@/components/sections/ShelfSection";
 import ContactSplitSection from "@/components/sections/ContactSplitSection";
 import FooterSection from "@/components/sections/FooterSection";
+import ContinuousGoldThread from "@/components/ui/ContinuousGoldThread";
 
-// Dynamically import Three.js WebGL canvas layer (never blocks SSR / FCP / LCP)
+// Asynchronous Three.js WebGL background layer (mounts on idle, never blocks LCP)
 const HeroScene = dynamic(() => import("@/components/canvas/HeroScene"), {
   ssr: false,
 });
@@ -35,12 +36,15 @@ export default function HomeClient() {
 
   return (
     <ScrollProvider>
-      <div className="relative min-h-screen bg-navy-900 text-cream-50 overflow-x-hidden selection:bg-gold selection:text-navy-900">
+      <div className="relative min-h-screen bg-transparent text-espresso-900 overflow-x-hidden selection:bg-gold selection:text-espresso-900">
         {/* Dynamic WebGL Canvas Layer (Mounts asynchronously without blocking LCP) */}
-        {mountCanvas && <HeroScene activeFlavor={activeFlavor} />}
+        {mountCanvas && <HeroScene />}
 
         {/* Global Editorial Luxury Header */}
         <Header />
+
+        {/* Sitewide Continuous Gold Thread Spine */}
+        <ContinuousGoldThread />
 
         {/* Main 7-Section Cinematic Storytelling Flow */}
         <main id="main-content" className="relative z-20">
@@ -53,16 +57,16 @@ export default function HomeClient() {
           {/* Section 2: Since 2009 Heritage & Maker Story */}
           <StorySection />
 
-          {/* Section 3: Why Taja (Six Differentiators) */}
+          {/* Section 3: Why Taja - Five Differentiators */}
           <WhyTajaSection />
 
           {/* Section 4: Authentic Bilingual Ingredients Showcase */}
           <IngredientsSection />
 
-          {/* Section 5: The Shelf (Full Product Catalogue & Filter) */}
+          {/* Section 5: The Shelf - Full Product Catalogue & Filter */}
           <ShelfSection />
 
-          {/* Section 6: Split Contact (Consumer Feedback & Distributor B2B Portal) */}
+          {/* Section 6: Split Contact - Consumer & Distributor Portal */}
           <ContactSplitSection />
         </main>
 

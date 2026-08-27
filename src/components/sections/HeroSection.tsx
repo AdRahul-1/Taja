@@ -28,7 +28,7 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
     if (isReducedMotion || typeof window === "undefined" || !heroRef.current) return;
 
     const ctx = gsap.context(() => {
-      // 1. Hero pack settle-in (1.2s, power3.out)
+      // Hero pack settle-in
       gsap.fromTo(
         ".hero-pack-visual",
         { y: 24, opacity: 0 },
@@ -39,16 +39,6 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
           ease: GSAP_TIMING.hero.ease,
         }
       );
-
-      // 2. Looping ambient steam wisps drift (independent of scroll)
-      gsap.to(".steam-wisp", {
-        y: -40,
-        opacity: 0,
-        duration: 4,
-        repeat: -1,
-        ease: "sine.inOut",
-        stagger: { each: 1.3, repeat: -1 },
-      });
     }, heroRef);
 
     return () => ctx.revert();
@@ -58,22 +48,17 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
     <section
       ref={heroRef}
       id="hero"
-      className="relative min-h-[92vh] lg:min-h-screen bg-navy-900 overflow-hidden flex flex-col justify-between pt-24 pb-12 px-4 sm:px-6 lg:px-12 text-cream-50"
+      className="relative min-h-[92vh] lg:min-h-screen bg-transparent overflow-hidden flex flex-col justify-between pt-28 pb-14 px-4 sm:px-6 lg:px-12 text-espresso-900"
     >
-      {/* 
-        Single off-center, heavily-blurred radial glow with NO visible edge 
-        (Only 1 blurred glow layer rendering in the hero viewport to maintain 60fps)
-      */}
-      <div
-        className="absolute top-1/2 right-[15%] -translate-y-1/2 w-[420px] h-[420px] lg:w-[540px] lg:h-[540px] rounded-full pointer-events-none -z-0 opacity-35 blur-[85px] transition-colors duration-1000"
-        style={{
-          backgroundColor: isJhal ? "#B91C1C" : "#C9982E",
-        }}
-      />
 
-      {/* Decorative Kadai Hairline Watermark in background */}
-      <div className="absolute right-4 bottom-0 pointer-events-none opacity-[0.035] select-none -z-0">
-        <span className="font-serif text-[28vw] font-black text-gold leading-none tracking-tighter">
+
+      {/* Bengali / English TAJA Watermark in background with smooth parallax */}
+      <div
+        data-scroll
+        data-scroll-speed="0.4"
+        className="absolute right-4 bottom-0 pointer-events-none opacity-[0.08] select-none -z-0 will-change-transform"
+      >
+        <span className="font-serif text-[26vw] font-black text-gold-dark leading-none tracking-tighter">
           TAJA
         </span>
       </div>
@@ -81,43 +66,43 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
       <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-8 lg:gap-12 items-center flex-1 my-auto relative z-20">
         {/* Left Column: Editorial Headline & Copy */}
         <div className="lg:col-span-7 flex flex-col items-start space-y-6 text-left">
-          {/* Bilingual Eyebrow (No generic Sparkles icon — clean gold dot) */}
+          {/* Bilingual Eyebrow with Brand & Manufacturer Connection */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/15 border border-gold/40 text-gold text-xs font-semibold tracking-wider uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold inline-block"></span>
-              <span>ESTD. 2009 • RANIGANJ</span>
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-200/90 border border-gold/40 text-gold-dark text-xs font-bold tracking-wider uppercase shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-dark inline-block"></span>
+              <span>TAJA CHANACHUR — A BRAND OF R.R. FOOD PRODUCTS (ESTD. 2009)</span>
             </span>
-            <span className="font-bengaliDisplay text-sm text-gold/90 font-medium">
+            <span className="font-bengaliDisplay text-sm text-espresso-700 font-medium">
               {HERO_COPY.eyebrowBn}
             </span>
           </div>
 
           {/* Display Headline */}
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-cream-50 leading-[1.08]">
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-espresso-900 leading-[1.08]">
             Your evening <br className="hidden sm:inline" />
-            <span className="text-gold italic font-normal">ritual,</span> since 2009.
+            <span className="text-heritageRed italic font-normal">ritual,</span> since 2009.
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg text-cream-100/85 max-w-xl leading-relaxed font-normal">
-            Hand-blended in small brass <span className="text-gold font-medium">kadai</span> batches in
+          <p className="text-base sm:text-lg text-espresso-800 max-w-xl leading-relaxed font-normal">
+            Hand-blended in small brass <span className="text-gold-dark font-semibold">kadai</span> batches in
             Raniganj, West Bengal. Golden sev ribbons, slow-roasted Bengal peanuts, and aromatic stone-ground
             spices crafted for the authentic connoisseur of evening tea.
           </p>
 
           {/* Interactive Flavor Variant Selector */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-2">
-            <span className="text-xs uppercase tracking-widest text-gold/80 font-semibold">
+            <span className="text-xs uppercase tracking-widest text-espresso-700 font-bold">
               Select Signature Blend:
             </span>
-            <div className="inline-flex p-1 rounded-full bg-navy-950/80 border border-gold/30 backdrop-blur-sm shadow-inner">
+            <div className="inline-flex p-1 rounded-full bg-cream-200/90 border border-gold/40 backdrop-blur-sm shadow-inner">
               <button
                 type="button"
                 onClick={() => handleFlavorToggle("jhal")}
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider transition-all ${
                   isJhal
                     ? "bg-heritageRed text-cream-50 shadow-md shadow-heritageRed/30"
-                    : "text-cream-50/70 hover:text-cream-50"
+                    : "text-espresso-800 hover:text-heritageRed"
                 }`}
               >
                 <Flame className="w-3.5 h-3.5" />
@@ -129,7 +114,7 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider transition-all ${
                   !isJhal
                     ? "bg-emerald-700 text-cream-50 shadow-md shadow-emerald-700/30"
-                    : "text-cream-50/70 hover:text-cream-50"
+                    : "text-espresso-800 hover:text-emerald-700"
                 }`}
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -148,9 +133,9 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
                   payload: { flavor: activeFlavor },
                 })
               }
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-heritageRed hover:bg-heritageRed-hover text-cream-50 font-semibold text-sm tracking-wider uppercase transition-all transform hover:translate-y-[-2px] shadow-lg shadow-heritageRed/30 group"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-heritageRed hover:bg-heritageRed-hover text-cream-50 font-bold text-sm tracking-wider uppercase transition-all transform hover:translate-y-[-2px] shadow-lg shadow-heritageRed/25 group cursor-pointer"
             >
-              <span>{HERO_COPY.ctaPrimary}</span>
+              <span>Explore</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
 
@@ -162,84 +147,71 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
                   payload: { source: "hero" },
                 })
               }
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full border border-gold/40 text-gold hover:text-cream-50 hover:bg-gold/15 font-semibold text-xs tracking-wider uppercase transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-navy-900/30 text-navy-900 hover:bg-navy-900 hover:text-cream-50 font-bold text-xs tracking-wider uppercase transition-all shadow-sm cursor-pointer"
             >
-              <span>{HERO_COPY.ctaSecondary}</span>
+              <span>Wholesale</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           {/* Quality Credentials Micro Bar */}
-          <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-cream-100/70 border-t border-gold/20 w-full">
+          <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-espresso-700 border-t border-gold/30 w-full">
             <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-dark"></span>
               <span>FSSAI Certified • Lic. 12821013000000</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
               <span>100% Vegetarian</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-heritageRed"></span>
               <span>Zero Trans-Fat Nitrogen Pack</span>
             </div>
           </div>
         </div>
 
-        {/* Right Column: DOM-First LCP Pack Visual with Steam Wisps (No hard ring borders) */}
+        {/* Right Column: Single Crisp High-Resolution Studio Pack (NO double background packet!) */}
         <div className="lg:col-span-5 flex items-center justify-center relative mt-6 lg:mt-0">
-          <div className="relative w-full max-w-[340px] sm:max-w-[420px] aspect-[4/5] flex items-center justify-center">
-            {/* Translucent Steam Wisps (Subtle atmospheric motion) */}
-            <div className="absolute -top-12 left-1/3 w-32 h-32 pointer-events-none z-30 opacity-40">
-              <svg viewBox="0 0 100 100" fill="none" className="w-full h-full">
-                <path
-                  className="steam-wisp"
-                  d="M30 80C35 60 25 40 32 20"
-                  stroke="rgba(251, 243, 231, 0.45)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  className="steam-wisp"
-                  d="M50 85C56 65 44 45 52 25"
-                  stroke="rgba(201, 152, 46, 0.35)"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  className="steam-wisp"
-                  d="M68 80C72 62 62 42 70 22"
-                  stroke="rgba(251, 243, 231, 0.4)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
+          {/* Warm Heritage Red / Emerald Glow Backdrop - Positioned directly behind & lower under the packet */}
+          <div
+            className="absolute top-[54%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] rounded-full pointer-events-none z-0 opacity-60 blur-[85px] sm:blur-[95px] transition-colors duration-1000 will-change-transform"
+            style={{
+              backgroundColor: isJhal ? "#B91C1C" : "#059669",
+            }}
+          />
 
-            {/* DOM-First LCP Image (Immediate High Priority Render) */}
-            <div className="hero-pack-visual relative w-full h-full transform hover:scale-105 transition-transform duration-500 will-change-transform z-20 flex items-center justify-center">
+          <div className="relative w-full max-w-[320px] sm:max-w-[380px] aspect-[4/5] flex items-center justify-center z-10">
+            {/* DOM-First LCP Image (Single, clean, crisp with Anti-Theft Shield) */}
+            <div className="hero-pack-visual relative w-full h-full transform hover:scale-105 transition-transform duration-500 will-change-transform z-20 flex items-center justify-center select-none">
+              <div
+                className="img-shield"
+                onContextMenu={(e) => e.preventDefault()}
+                aria-hidden="true"
+              />
               <Image
                 src={isJhal ? "/10_rs_jhal_red_new.webp" : "/10_rs_misti_new.webp"}
                 alt={`Taja Chanachur ${isJhal ? "Special Jhal" : "Tak Jhal Misti"} 50g Flagship Pack`}
-                width={700}
-                height={700}
+                width={650}
+                height={650}
                 priority
                 fetchPriority="high"
-                sizes="(max-width: 768px) 320px, (max-width: 1200px) 400px, 500px"
-                className="w-full h-full object-contain filter drop-shadow-[0_25px_30px_rgba(0,0,0,0.6)] animate-float"
+                draggable={false}
+                sizes="(max-width: 768px) 300px, 380px"
+                className="w-full h-full object-contain filter drop-shadow-[0_20px_25px_rgba(0,0,0,0.3)] animate-float protected-image-layer pointer-events-none select-none"
               />
             </div>
 
             {/* Floating Price & Authenticity Badge */}
-            <div className="absolute bottom-4 right-2 sm:right-4 z-30 bg-navy-950/90 border border-gold/50 rounded-2xl px-4 py-2.5 backdrop-blur-md shadow-xl flex items-center gap-3">
+            <div className="absolute bottom-2 right-2 sm:right-4 z-30 bg-cream-50/95 border border-gold/50 rounded-2xl px-4 py-2.5 backdrop-blur-md shadow-xl flex items-center gap-3">
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-wider text-gold font-bold">MRP ONLY</span>
-                <span className="font-serif text-xl font-bold text-cream-50 leading-none">₹10</span>
+                <span className="text-[10px] uppercase tracking-wider text-gold-dark font-bold">MRP ONLY</span>
+                <span className="font-serif text-xl font-bold text-espresso-900 leading-none">₹10</span>
               </div>
-              <div className="w-px h-7 bg-gold/30"></div>
+              <div className="w-px h-7 bg-gold/40"></div>
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-wider text-cream-50/70">Pack Size</span>
-                <span className="text-xs font-semibold text-cream-50">50g Net Wt.</span>
+                <span className="text-[10px] uppercase tracking-wider text-espresso-muted">Pack Size</span>
+                <span className="text-xs font-semibold text-espresso-900">50g Net Wt.</span>
               </div>
             </div>
           </div>

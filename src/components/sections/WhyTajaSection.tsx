@@ -1,72 +1,239 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { gsap, GSAP_TIMING } from "@/lib/gsapConfig";
+import { gsap, ScrollTrigger } from "@/lib/gsapConfig";
 import { DIFFERENTIATORS } from "@/constants/bilingualCopy";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import {
   KadaiWokIcon,
-  KadaiHandIcon,
   KadaiFlameIcon,
   KadaiLeafIcon,
   KadaiPackIcon,
   KadaiChaiIcon,
 } from "@/components/icons/KadaiIcons";
 
+// 5 Curated Core Points for Maximum Impact
+const CURATED_POINTS = [
+  {
+    id: "kadai-batches",
+    titleEn: "Small Kadai Batches",
+    titleBn: "হাতে তৈরি ছোট কড়াই ব্যাচ",
+    descEn:
+      "Never mass-extruded. Every batch is slow-roasted and tossed by hand in traditional brass kadais for even spice distribution and heirloom crunch.",
+    icon: "kadai",
+    number: "01",
+  },
+  {
+    id: "heritage-spices",
+    titleEn: "Pure Heritage Spices",
+    titleBn: "খাঁটি মশলার নিজস্ব ঐতিহ্য",
+    descEn:
+      "Whole roasted cumin, black rock salt, sun-dried Guntur chillies, and secret Bengal spice aromatics ground fresh in-house daily in Raniganj.",
+    icon: "leaf",
+    number: "02",
+  },
+  {
+    id: "mustard-crispness",
+    titleEn: "Mustard Oil Crispness",
+    titleBn: "সরিষার তেলের খাস্তা স্বাদ",
+    descEn:
+      "Fried to a delicate golden crunch in pure edible oil, delivering the authentic pungent warmth beloved across Bengal's tea stalls.",
+    icon: "flame",
+    number: "03",
+  },
+  {
+    id: "zero-trans-fat",
+    titleEn: "Zero Trans-Fat Nitrogen Lock",
+    titleBn: "এয়ারটাইট নাইট্রোজেন ফ্রেশনেস",
+    descEn:
+      "Packed immediately under food-grade nitrogen barrier foils to lock in crunch and aroma without artificial preservatives.",
+    icon: "pack",
+    number: "04",
+  },
+  {
+    id: "evening-chai",
+    titleEn: "The Evening Tea Ritual",
+    titleBn: "সন্ধ্যার আড্ডার চিরন্তন সঙ্গী",
+    descEn:
+      "The undisputed centerpiece of Bengali adda. Perfectly paired with steaming clay cups of ginger tea and endless conversations.",
+    icon: "chai",
+    number: "05",
+  },
+];
+
 export default function WhyTajaSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const pointsTrackRef = useRef<HTMLDivElement>(null);
+  const eveningRef = useRef<HTMLSpanElement>(null);
   const isReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (isReducedMotion || typeof window === "undefined" || !sectionRef.current) return;
+    if (isReducedMotion || typeof window === "undefined" || !sectionRef.current || !pointsTrackRef.current) {
+      return;
+    }
 
-    const ctx = gsap.context(() => {
-      // 1. Staggered card entrance (0.8s, brandEase)
-      gsap.fromTo(
-        ".why-item-card",
-        { y: 24, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: GSAP_TIMING.section.duration,
-          ease: GSAP_TIMING.section.ease,
-          stagger: 0.12,
+    const section = sectionRef.current;
+    const pointsTrack = pointsTrackRef.current;
+
+    const mm = gsap.matchMedia(sectionRef);
+
+    // 1. DESKTOP / LARGE TABLET VIEWPORT (>= 1024px): Luxury Pinned Master Timeline
+    mm.add("(min-width: 1024px)", () => {
+      // Header Line Mask Reveals
+      const lines = gsap.utils.toArray<HTMLElement>(".why-line-reveal");
+      lines.forEach((line) => {
+        gsap.fromTo(
+          line,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: line,
+              start: "top 95%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      });
+
+      // Precision Vertical Pin & Scroll from Point 01 to Point 05 aligning with "Evening."
+      const items = gsap.utils.toArray<HTMLElement>(".why-point-item");
+      if (items.length > 0) {
+        const firstItem = items[0];
+        const lastItem = items[items.length - 1];
+
+        // Start position: Point 01 starts towards the bottom (70% viewport height)
+        const getStartY = () => {
+          const currentY = Number(gsap.getProperty(pointsTrack, "y")) || 0;
+          const firstRect = firstItem.getBoundingClientRect();
+          return currentY + (window.innerHeight * 0.70 - firstRect.top);
+        };
+
+        // End position: Point 05 aligns exactly with the "Evening." baseline before unpinning
+        const getEndY = () => {
+          if (eveningRef.current) {
+            const currentY = Number(gsap.getProperty(pointsTrack, "y")) || 0;
+            const eveningRect = eveningRef.current.getBoundingClientRect();
+            const lastRect = lastItem.getBoundingClientRect();
+            return currentY + (eveningRect.top - lastRect.top);
+          }
+          return -600;
+        };
+
+        // Initialize all SVG icon paths with strokeDashoffset
+        items.forEach((item) => {
+          const paths = item.querySelectorAll<SVGPathElement>(".kadai-icon-path");
+          paths.forEach((path) => {
+            if (typeof path.getTotalLength === "function") {
+              const len = path.getTotalLength();
+              gsap.set(path, { strokeDasharray: len + 1, strokeDashoffset: len + 1 });
+            }
+          });
+        });
+
+        // Master Timeline for Pinned Section & Individual SVG Drawing
+        const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: ".why-grid",
-            start: "top 85%",
-            once: true,
+            trigger: section,
+            start: "top top",
+            end: () => `+=${Math.abs(getStartY() - getEndY())}`,
+            pin: true,
+            scrub: true,
+            invalidateOnRefresh: true,
           },
-        }
-      );
+        });
 
-      // 2. Custom SVG Icon stroke self-drawing as each card enters viewport
-      const cards = gsap.utils.toArray<HTMLElement>(".why-item-card");
-      cards.forEach((card) => {
-        const paths = card.querySelectorAll<SVGPathElement>(".kadai-icon-path");
+        // Move the points track smoothly
+        tl.fromTo(
+          pointsTrack,
+          { y: getStartY },
+          { y: getEndY, ease: "none", duration: 5 },
+          0
+        );
+
+        // Animate each SVG icon drawing earlier as each point enters view
+        const totalItems = items.length;
+        items.forEach((item, index) => {
+          const paths = item.querySelectorAll<SVGPathElement>(".kadai-icon-path");
+          const iconBox = item.querySelector<HTMLElement>(".why-icon-box");
+          const startTime = Math.max(0, (index / totalItems) * 3.8);
+
+          paths.forEach((path) => {
+            tl.to(
+              path,
+              {
+                strokeDashoffset: 0,
+                duration: 0.5,
+                ease: "power2.out",
+              },
+              startTime
+            );
+          });
+
+          if (iconBox) {
+            tl.fromTo(
+              iconBox,
+              { scale: 0.85, opacity: 0.5 },
+              { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" },
+              startTime
+            );
+          }
+        });
+      }
+    });
+
+    // 2. MOBILE / NARROW VIEWPORT (< 1024px): Natural Smooth Vertical Scroll Flow
+    mm.add("(max-width: 1023px)", () => {
+      // Clear any fixed transforms for natural mobile scrolling
+      gsap.set(pointsTrack, { clearProps: "all" });
+
+      const items = gsap.utils.toArray<HTMLElement>(".why-point-item");
+      items.forEach((item) => {
+        const paths = item.querySelectorAll<SVGPathElement>(".kadai-icon-path");
+        const iconBox = item.querySelector<HTMLElement>(".why-icon-box");
+
         paths.forEach((path) => {
           if (typeof path.getTotalLength === "function") {
             const len = path.getTotalLength();
-            gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-            gsap.to(path, {
-              strokeDashoffset: 0,
-              duration: GSAP_TIMING.section.duration,
-              ease: GSAP_TIMING.section.ease,
-              scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-                once: true,
-              },
-            });
+            gsap.set(path, { strokeDasharray: len + 1, strokeDashoffset: len + 1 });
           }
         });
-      });
-    }, sectionRef);
 
-    return () => ctx.revert();
+        const cardTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: item,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        cardTl
+          .fromTo(
+            item,
+            { opacity: 0, y: 24 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+          )
+          .to(paths, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
+          .fromTo(
+            iconBox,
+            { scale: 0.85, opacity: 0.5 },
+            { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" },
+            "-=0.4"
+          );
+      });
+    });
+
+    return () => {
+      mm.revert();
+      ScrollTrigger.refresh();
+    };
   }, [isReducedMotion]);
 
-  const renderKadaiIcon = (iconName: string) => {
-    const iconClass = "w-6 h-6 text-gold transition-transform group-hover:scale-110";
+  const renderIcon = (iconName: string) => {
+    const iconClass = "w-6 h-6 text-gold-dark";
     switch (iconName) {
       case "kadai":
         return <KadaiWokIcon className={iconClass} />;
@@ -77,10 +244,8 @@ export default function WhyTajaSection() {
       case "pack":
         return <KadaiPackIcon className={iconClass} />;
       case "chai":
-        return <KadaiChaiIcon className={iconClass} />;
-      case "hand":
       default:
-        return <KadaiHandIcon className={iconClass} />;
+        return <KadaiChaiIcon className={iconClass} />;
     }
   };
 
@@ -88,63 +253,97 @@ export default function WhyTajaSection() {
     <section
       ref={sectionRef}
       id="why-taja"
-      className="relative bg-navy-900 text-cream-50 py-24 sm:py-32 px-4 sm:px-6 lg:px-12 border-t border-gold/20"
+      className="relative bg-transparent text-espresso-900 min-h-screen lg:h-screen overflow-visible lg:overflow-hidden border-t border-gold/30 flex items-center py-20 lg:py-0"
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-widest mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold inline-block"></span>
-            <span>THE TAJA DIFFERENCE</span>
-          </div>
-          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-cream-50 leading-tight">
-            Why Bengal Reaches for <br />
-            <span className="text-gold italic font-normal">Taja Every Evening.</span>
-          </h2>
-          <p className="font-bengaliDisplay text-gold/90 text-lg sm:text-xl mt-3 font-medium">
-            কেন তাজা চানাচুর খাঁটি ও অনন্য?
-          </p>
-        </div>
-
-        {/* 6-Item Editorial Grid with Hairline Gold Separators */}
-        <div className="why-grid grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-14 relative">
-          {DIFFERENTIATORS.map((diff, index) => (
-            <div
-              key={diff.id}
-              className="why-item-card group flex flex-col items-start relative pt-6 border-t border-gold/30 hover:border-gold transition-all duration-300 opacity-100"
-            >
-              {/* Custom SVG Icon Container */}
-              <div className="flex items-center justify-between w-full mb-4">
-                <div className="p-2.5 rounded-xl bg-navy-950 border border-gold/30 shadow-inner group-hover:border-gold transition-colors">
-                  {renderKadaiIcon(diff.iconName)}
-                </div>
-                <span className="text-xs font-bold text-gold/50 font-serif tracking-widest">
-                  0{index + 1}
-                </span>
-              </div>
-
-              {/* Bilingual Titles */}
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-cream-50 group-hover:text-gold transition-colors mb-1">
-                {diff.titleEn}
-              </h3>
-              <h4 className="font-bengaliDisplay text-sm text-gold/90 font-medium mb-3">
-                {diff.titleBn}
-              </h4>
-
-              {/* Description */}
-              <p className="text-sm text-cream-100/75 leading-relaxed font-normal">
-                {diff.descEn}
-              </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full h-full grid lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+        {/* 
+          LEFT COLUMN (lg:col-span-5):
+          Pinned Main Headline on Desktop, Natural Top Header on Mobile
+        */}
+        <div className="lg:col-span-5 flex flex-col justify-center space-y-6 self-start lg:self-center pr-0 lg:pr-4">
+          <div className="overflow-hidden pb-1">
+            <div className="why-line-reveal flex items-center gap-2 will-change-transform">
+              <span className="w-2 h-2 rounded-full bg-gold-dark inline-block"></span>
+              <span className="text-xs font-bold uppercase tracking-widest text-gold-dark">
+                THE TAJA DIFFERENCE
+              </span>
             </div>
-          ))}
+          </div>
+
+          <div className="overflow-hidden pb-3">
+            <h2 className="why-line-reveal font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-espresso-900 leading-[1.12] pb-2 will-change-transform">
+              Why Bengal <br />
+              Reaches for <br />
+              <span
+                ref={eveningRef}
+                className="text-heritageRed italic font-normal inline-block pt-1 pb-2"
+              >
+                Taja Every Evening.
+              </span>
+            </h2>
+          </div>
+
+          <div className="overflow-hidden pb-1">
+            <p className="why-line-reveal font-bengaliDisplay text-espresso-700 text-lg sm:text-xl font-medium will-change-transform">
+              কেন তাজা চানাচুর খাঁটি ও অনন্য?
+            </p>
+          </div>
+
+          <div className="overflow-hidden pb-1">
+            <p className="why-line-reveal text-sm sm:text-base text-espresso-800 leading-relaxed font-normal will-change-transform">
+              Since 2009, R.R. Food Products has refused industrial shortcuts, preserving the
+              sacred brass kadai flame roast and authentic Bengal spice blending.
+            </p>
+          </div>
+
+          {/* Quality Credential */}
+          <div className="pt-4 border-t border-gold/30 flex items-center justify-between text-xs text-espresso-muted">
+            <span>FSSAI Certified • Lic. 12821013000000</span>
+            <span className="font-serif text-gold-dark font-bold">Raniganj, WB</span>
+          </div>
         </div>
 
-        {/* Bottom Banner Accent */}
-        <div className="mt-20 pt-8 border-t border-gold/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream-100/60 text-center sm:text-left">
-          <span>R.R. Food Products • Traditional Food Safety & Hygiene Standards</span>
-          <span className="font-bengaliDisplay text-gold text-sm font-medium">
-            প্রতিটি দানা মুচমুচে ও সতেজ
-          </span>
+        {/* 
+          RIGHT COLUMN (lg:col-span-7):
+          Flat Typography-Driven Points with Smooth Scroll on Desktop & Natural Stack on Mobile
+        */}
+        <div className="lg:col-span-7 h-auto lg:h-full flex flex-col justify-start lg:justify-center overflow-visible lg:overflow-hidden relative mt-8 lg:mt-0">
+          <div
+            ref={pointsTrackRef}
+            className="w-full space-y-12 sm:space-y-16 lg:space-y-20 will-change-transform"
+          >
+            {CURATED_POINTS.map((point) => (
+              <div
+                key={point.id}
+                className="why-point-item group flex items-start gap-5 sm:gap-8 pb-8 sm:pb-12 border-b border-gold/30 last:border-0"
+              >
+                {/* Number Callout */}
+                <div className="font-serif text-2xl sm:text-3xl font-bold text-gold-dark/60 group-hover:text-gold-dark transition-colors shrink-0 w-8 pt-1">
+                  {point.number}
+                </div>
+
+                {/* Animated Gold Linework Icon with Individual SVG Drawing */}
+                <div className="why-icon-box w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-cream-200/90 border border-gold/40 flex items-center justify-center shrink-0 shadow-sm group-hover:bg-gold/20 group-hover:border-gold-dark transition-all duration-300">
+                  {renderIcon(point.icon)}
+                </div>
+
+                {/* Flat Typography Content */}
+                <div className="space-y-2 flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                    <h3 className="font-serif text-lg sm:text-2xl font-bold text-espresso-900 group-hover:text-gold-dark transition-colors">
+                      {point.titleEn}
+                    </h3>
+                    <span className="font-bengaliDisplay text-xs sm:text-sm text-heritageRed font-semibold">
+                      {point.titleBn}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-base text-espresso-800 leading-relaxed font-normal">
+                    {point.descEn}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
