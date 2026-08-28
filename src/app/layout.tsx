@@ -114,7 +114,7 @@ const brandSchema = {
       },
       image: "https://tajachanachur.com/og-image.jpg",
       description:
-        "R.R. Food Products is the manufacturer of Taja Chanachur and traditional Bengali tea-time snacks in Raniganj, West Bengal since 2009. FSSAI Lic. No. 12821013000000. Official domains: rrfoodproducts.com and tajachanachur.in.",
+        "R.R. Food Products is the manufacturer of Taja Chanachur and traditional Bengali tea-time snacks in Raniganj, West Bengal since 2009. FSSAI Lic. No. 12825023000187. Official domains: rrfoodproducts.com and tajachanachur.in.",
       foundingDate: "2009",
       address: {
         "@type": "PostalAddress",
@@ -205,7 +205,7 @@ export default function RootLayout({
           <header>
             <h1>Taja Chanachur | Authentic Handcrafted Bengali Tea-Time Snacks by R.R. Food Products Since 2009</h1>
             <p>
-              Manufactured with pride in Raniganj, West Bengal (FSSAI Lic. No. 12821013000000). 
+              Manufactured with pride in Raniganj, West Bengal (FSSAI Lic. No. 12825023000187). 
               Crafted in small brass kadai batches with 100% pure roasted Bengal peanuts, crisp sev ribbons, 
               stone-ground heritage spices, and sealed under food-grade zero trans-fat nitrogen barrier foils.
             </p>
@@ -255,7 +255,7 @@ export default function RootLayout({
             <p>
               This website serves as the unified official portal for both <strong>rrfoodproducts.com</strong> (corporate manufacturer) 
               and <strong>tajachanachur.in</strong> (consumer brand hub). Manufactured exclusively by R.R. Food Products 
-              in Raniganj, Paschim Bardhaman, West Bengal (FSSAI Lic. No. 12821013000000).
+              in Raniganj, Paschim Bardhaman, West Bengal (FSSAI Lic. No. 12825023000187).
             </p>
           </section>
 

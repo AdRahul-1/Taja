@@ -158,7 +158,7 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
           <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-espresso-700 border-t border-gold/30 w-full">
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-gold-dark"></span>
-              <span>FSSAI Certified • Lic. 12821013000000</span>
+              <span>FSSAI Certified • Lic. 12825023000187</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>

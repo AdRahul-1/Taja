@@ -15,11 +15,11 @@ import {
 // 5 Curated Core Points for Maximum Impact
 const CURATED_POINTS = [
   {
-    id: "kadai-batches",
-    titleEn: "Small Kadai Batches",
-    titleBn: "হাতে তৈরি ছোট কড়াই ব্যাচ",
+    id: "precision-batches",
+    titleEn: "Precision Crafted Batches",
+    titleBn: "আধুনিক প্রযুক্তিতে, ঐতিহ্যের স্বাদ",
     descEn:
-      "Never mass-extruded. Every batch is slow-roasted and tossed by hand in traditional brass kadais for even spice distribution and heirloom crunch.",
+      "Where modern technology meets Taja tradition. Advanced machinery gives every batch precise roasting, even seasoning, and consistent crunch—so every pack delivers the same unmistakable Taja experience.",
     icon: "kadai",
     number: "01",
   },
@@ -298,7 +298,7 @@ export default function WhyTajaSection() {
 
           {/* Quality Credential */}
           <div className="pt-4 border-t border-gold/30 flex items-center justify-between text-xs text-espresso-muted">
-            <span>FSSAI Certified • Lic. 12821013000000</span>
+            <span>FSSAI Certified • Lic. 12825023000187</span>
             <span className="font-serif text-gold-dark font-bold">Raniganj, WB</span>
           </div>
         </div>

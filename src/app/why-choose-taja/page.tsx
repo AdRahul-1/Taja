@@ -29,7 +29,7 @@ const FAQS = [
   },
   {
     q: "Is Taja Chanachur 100% vegetarian and FSSAI certified?",
-    a: "Yes. Taja Chanachur is manufactured in a certified 100% vegetarian facility under statutory FSSAI License No. 12821013000000, adhering strictly to food safety and hygiene regulations.",
+    a: "Yes. Taja Chanachur is manufactured in a certified 100% vegetarian facility under statutory FSSAI License No. 12825023000187, adhering strictly to food safety and hygiene regulations.",
   },
   {
     q: "How does Taja keep its crunch fresh without artificial preservatives?",

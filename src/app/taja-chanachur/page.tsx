@@ -10,7 +10,7 @@ import { PRODUCTS_CATALOG } from "@/constants/bilingualCopy";
 export const metadata: Metadata = {
   title: "Taja Chanachur | Official Brand Page by R.R. Food Products Raniganj",
   description:
-    "Official page for Taja Chanachur by R.R. Food Products (Raniganj, West Bengal since 2009). Discover Special Jhal, Tak Jhal Misti, and Masala Chira in ₹10, ₹35, and ₹90 packs. FSSAI Lic. No. 12821013000000.",
+    "Official page for Taja Chanachur by R.R. Food Products (Raniganj, West Bengal since 2009). Discover Special Jhal, Tak Jhal Misti, and Masala Chira in ₹10, ₹35, and ₹90 packs. FSSAI Lic. No. 12825023000187.",
   keywords: [
     "Taja Chanachur",
     "Taja Chanachur official website",
@@ -103,7 +103,7 @@ export default function TajaChanachurPage() {
               <div className="flex items-center justify-between pb-4 border-b border-gold/30">
                 <div>
                   <h2 className="font-serif text-2xl font-bold text-espresso-900">Brand & Manufacturer Authority</h2>
-                  <p className="text-xs text-espresso-muted">Statutory FSSAI License: 12821013000000</p>
+                  <p className="text-xs text-espresso-muted">Statutory FSSAI License: 12825023000187</p>
                 </div>
                 <div className="px-3.5 py-1 rounded-full bg-navy-950 text-gold text-xs font-bold tracking-wider uppercase">
                   ESTD. 2009

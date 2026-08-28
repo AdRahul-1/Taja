@@ -135,7 +135,7 @@ export default function FooterSection() {
                 <span className="font-bold text-xs text-cream-50">FSSAI Certified</span>
               </div>
               <p className="text-[11px] font-mono text-gold bg-navy-950 px-2 py-1 rounded border border-gold/20 select-all">
-                Lic. No. 12821013000000
+                Lic. No. 12825023000187
               </p>
               <p className="text-[10px] text-cream-100/60 leading-tight">
                 Food Safety and Standards Authority of India (FSSAI) compliance standards strictly maintained.

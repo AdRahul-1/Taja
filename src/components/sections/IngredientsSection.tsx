@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import { INGREDIENTS } from "@/constants/bilingualCopy";
 import { trackEvent } from "@/lib/analytics";
 import { gsap, ScrollTrigger } from "@/lib/gsapConfig";
@@ -61,20 +60,28 @@ export default function IngredientsSection() {
         );
       });
 
-      const cards = track.querySelectorAll<HTMLElement>(".ing-card-item");
+      const cards = gsap.utils.toArray<HTMLElement>(".ing-card-item", track);
       if (cards.length > 0) {
         const firstCard = cards[0];
         const lastCard = cards[cards.length - 1];
 
+        // Card 1 (01 — Roasted Bengal Peanuts) starts centered in the screen
         const getStartX = () => {
           const card1Center = firstCard.offsetLeft + firstCard.offsetWidth / 2;
           return window.innerWidth / 2 - card1Center;
         };
 
+        // Last card (09 — Raisins & Roasted Cashews) finishes at the right side of the viewport + 50% card width margin
         const getEndX = () => {
           const lastCardRight = lastCard.offsetLeft + lastCard.offsetWidth;
-          const rightMargin = Math.max(90, lastCard.offsetWidth * 0.30);
+          const rightMargin = lastCard.offsetWidth * 0.5;
           return window.innerWidth - lastCardRight - rightMargin;
+        };
+
+        // Pinning scroll distance directly proportional to the actual horizontal travel
+        const getScrollDistance = () => {
+          const totalTravel = Math.abs(getStartX() - getEndX());
+          return Math.max(window.innerHeight * 1.8, totalTravel * 1.05);
         };
 
         gsap.fromTo(
@@ -86,10 +93,27 @@ export default function IngredientsSection() {
             scrollTrigger: {
               trigger: section,
               start: "top top",
-              end: () => `+=${Math.max(window.innerHeight * 1.6, Math.abs(getStartX() - getEndX()) + 350)}`,
+              end: () => `+=${getScrollDistance()}`,
               pin: true,
               scrub: 1,
               invalidateOnRefresh: true,
+              onUpdate: () => {
+                const currentX = gsap.getProperty(track, "x") as number;
+                const screenCenter = window.innerWidth / 2;
+                let closestIndex = 0;
+                let minDiff = Infinity;
+                cards.forEach((card, i) => {
+                  const cardCenter = card.offsetLeft + card.offsetWidth / 2 + currentX;
+                  const diff = Math.abs(cardCenter - screenCenter);
+                  if (diff < minDiff) {
+                    minDiff = diff;
+                    closestIndex = i;
+                  }
+                });
+                if (INGREDIENTS[closestIndex]) {
+                  setActiveIngredient(INGREDIENTS[closestIndex]);
+                }
+              },
             },
           }
         );
@@ -181,7 +205,7 @@ export default function IngredientsSection() {
       >
         <div
           ref={trackRef}
-          className="flex items-center gap-4 sm:gap-6 md:gap-8 px-4 will-change-transform select-none"
+          className="relative w-max flex items-center gap-4 sm:gap-6 md:gap-8 px-4 sm:px-8 md:px-12 will-change-transform select-none"
         >
           {INGREDIENTS.map((item, index) => {
             const isSelected = activeIngredient.id === item.id;
@@ -189,67 +213,52 @@ export default function IngredientsSection() {
               <div
                 key={item.id}
                 onClick={() => handleSelect(item)}
-                className={`ing-card-item group flex-shrink-0 w-[260px] sm:w-[300px] md:w-[360px] h-[360px] sm:h-[390px] md:h-[410px] rounded-3xl flex flex-col justify-between cursor-pointer border transition-all duration-300 relative overflow-hidden backdrop-blur-sm select-none ${
+                className={`ing-card-item group flex-shrink-0 w-[280px] sm:w-[320px] md:w-[350px] min-h-[300px] sm:min-h-[320px] rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer border transition-all duration-500 relative overflow-hidden backdrop-blur-md select-none ${
                   isSelected
-                    ? "bg-cream-50/98 border-gold-dark shadow-2xl scale-102 ring-2 ring-gold-dark"
-                    : "bg-cream-50/95 border-gold/40 hover:border-gold-dark hover:shadow-2xl hover:translate-y-[-4px]"
+                    ? "bg-cream-50 border-gold-dark shadow-2xl scale-102 ring-2 ring-gold-dark"
+                    : "bg-gradient-to-b from-cream-50/98 via-cream-100/90 to-cream-200/75 border-gold/50 hover:border-gold-dark hover:shadow-2xl hover:translate-y-[-4px]"
                 }`}
               >
-                {/* Invisible anti-theft copy protection shield */}
-                <div
-                  className="img-shield"
-                  onContextMenu={(e) => e.preventDefault()}
-                  aria-hidden="true"
-                />
+                {/* Large Subtle Editorial Watermark Number in background */}
+                <span className="absolute -bottom-6 -right-3 font-serif text-8xl sm:text-9xl font-black text-gold/10 select-none pointer-events-none transition-transform duration-500 group-hover:scale-105 group-hover:text-gold/15">
+                  0{index + 1}
+                </span>
 
-                {/* Full-Card Top Visual Banner with Smooth Hover Zoom Effect */}
-                <div className="relative w-full h-[52%] overflow-hidden bg-espresso-950 select-none">
-                  <Image
-                    src={item.image}
-                    alt={`${item.nameEn} - Bengali Chanachur Authentic Ingredient`}
-                    fill
-                    sizes="(max-width: 640px) 260px, (max-width: 1024px) 300px, 360px"
-                    draggable={false}
-                    className="object-cover w-full h-full transform group-hover:scale-115 transition-transform duration-700 ease-out pointer-events-none select-none"
-                  />
-                  {/* Subtle Gradient Shadow for text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-espresso-900/60 via-transparent to-black/20 pointer-events-none" />
-
-                  {/* Top Floating Badge & Index */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-20 pointer-events-none">
-                    <span className="px-2.5 py-0.5 rounded-full bg-navy-950/85 backdrop-blur-sm text-gold font-serif text-xs font-bold tracking-widest border border-gold/40 shadow-sm">
+                {/* Top Row: Index Badge + Category Tag */}
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cream-200/90 border border-gold/40 shadow-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold-dark inline-block" />
+                    <span className="font-serif text-xs font-bold text-gold-dark tracking-widest">
                       0{index + 1}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-cream-100/90 backdrop-blur-sm text-espresso-900 text-[10px] sm:text-[11px] font-bold border border-gold/40 shadow-sm">
-                      {item.tag}
-                    </span>
                   </div>
+
+                  <span className="px-3 py-1 rounded-full bg-heritageRed/10 border border-heritageRed/30 text-heritageRed text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                    {item.tag}
+                  </span>
                 </div>
 
-                {/* Bottom Content: English + Bengali Typography */}
-                <div className="p-4 sm:p-5 md:p-6 flex flex-col justify-between flex-1 border-t border-gold/30 bg-cream-50/95 relative z-20">
-                  <div>
-                    <div className="flex items-baseline justify-between mb-1">
-                      <h3 className="font-serif text-base sm:text-lg md:text-xl font-bold text-espresso-900 leading-snug group-hover:text-gold-dark transition-colors">
-                        {item.nameEn}
-                      </h3>
-                      <span className="font-bengaliDisplay text-xs font-bold text-heritageRed ml-2 shrink-0">
-                        {item.nameBn}
-                      </span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-espresso-800 line-clamp-2 leading-relaxed font-normal">
-                      {item.notesEn}
-                    </p>
-                  </div>
+                {/* Middle Content: Eye-catching Bold Editorial Typography */}
+                <div className="my-auto py-4 relative z-10">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-espresso-900 leading-[1.15] mb-1.5 group-hover:text-gold-dark transition-colors">
+                    {item.nameEn}
+                  </h3>
+                  <p className="font-bengaliDisplay text-lg sm:text-xl font-bold text-heritageRed mb-3 tracking-wide">
+                    {item.nameBn}
+                  </p>
+                  <p className="text-sm sm:text-base text-espresso-800 leading-relaxed font-normal">
+                    {item.notesEn}
+                  </p>
+                </div>
 
-                  <div className="pt-2 border-t border-gold/20 flex items-center justify-between text-[10px] sm:text-[11px] text-espresso-muted">
-                    <span className="font-semibold text-gold-dark uppercase tracking-wider">
-                      {item.subtitleEn}
-                    </span>
-                    <span className="font-bengaliDisplay text-espresso-600">
-                      {item.subtitleBn}
-                    </span>
-                  </div>
+                {/* Bottom Row: Accent Subtitle Line */}
+                <div className="pt-3 border-t border-gold/30 flex items-center justify-between text-xs relative z-10">
+                  <span className="font-bold text-gold-dark uppercase tracking-wider">
+                    {item.subtitleEn}
+                  </span>
+                  <span className="font-bengaliDisplay text-espresso-700 font-semibold">
+                    {item.subtitleBn}
+                  </span>
                 </div>
               </div>
             );

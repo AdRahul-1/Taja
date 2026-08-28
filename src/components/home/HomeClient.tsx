@@ -40,7 +40,6 @@ export default function HomeClient() {
         {/* Dynamic WebGL Canvas Layer (Mounts asynchronously without blocking LCP) */}
         {mountCanvas && <HeroScene />}
 
-        {/* Global Editorial Luxury Header */}
         <Header />
 
         {/* Sitewide Continuous Gold Thread Spine */}

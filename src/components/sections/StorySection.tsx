@@ -140,8 +140,8 @@ export default function StorySection() {
 
           <div className="overflow-hidden pb-3">
             <h2 className="story-line-reveal font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-espresso-900 leading-[1.12] pb-2 will-change-transform">
-              Hand-Blended in <br />
-              <span className="text-heritageRed italic font-normal inline-block pt-1 pb-1">Small Kadai Batches.</span>
+              You Can Hear <br />
+              <span className="text-heritageRed italic font-normal inline-block pt-1 pb-1">When It{"’"}s Ready.</span>
             </h2>
           </div>
         </div>
@@ -150,16 +150,21 @@ export default function StorySection() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Column: Long-form narrative housed inside an Inset Warm Cream Paper Card */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="rounded-3xl bg-cream-50/95 text-espresso-900 border border-gold/40 p-8 sm:p-10 shadow-xl space-y-8 backdrop-blur-sm">
+            <div className="rounded-3xl bg-cream-50/95 text-espresso-900 border border-gold/40 p-7 sm:p-9 shadow-xl space-y-6 sm:space-y-7 backdrop-blur-sm">
               {STORY_COPY.lines.map((item, index) => (
                 <div
                   key={index}
                   className="relative pl-5 border-l-2 border-gold/60 hover:border-gold-dark transition-colors overflow-hidden"
                 >
                   <div className="story-line-reveal will-change-transform">
-                    <span className="text-xs font-bold uppercase tracking-widest text-gold-dark mb-1 block">
+                    <span className="text-sm sm:text-base font-bold uppercase tracking-wider text-gold-dark mb-1.5 block">
                       0{index + 1} — {item.title}
                     </span>
+                    {item.lead && (
+                      <p className="font-serif text-base sm:text-lg font-semibold text-espresso-900 leading-snug mb-1.5">
+                        {item.lead}
+                      </p>
+                    )}
                     <p className="text-sm sm:text-base text-espresso-800 leading-relaxed font-normal">
                       {item.body}
                     </p>

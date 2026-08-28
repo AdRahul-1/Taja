@@ -400,7 +400,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                 R.R. Food Products • Raniganj, West Bengal
               </p>
               <p style={{ margin: "4px 0 0 0", color: "#efdec0", fontSize: "11px" }}>
-                FSSAI Central/State Lic. No. 12821013000000 | Estd. 2009
+                FSSAI Central/State Lic. No. 12825023000187 | Estd. 2009
               </p>
               <p style={{ margin: "8px 0 0 0", color: "#a0aec0", fontSize: "10px" }}>
                 This is an automated notification from tajachanachur.com. Please do not reply directly to this noreply address.

@@ -9,7 +9,7 @@ import FooterSection from "@/components/sections/FooterSection";
 export const metadata: Metadata = {
   title: "About Our Heritage | R.R. Food Products & Taja Chanachur Since 2009",
   description:
-    "Discover the story of R.R. Food Products, crafting authentic Bengali tea-time snacks and Taja Chanachur in small brass kadais in Raniganj, West Bengal since 2009. FSSAI Lic. No. 12821013000000.",
+    "Discover the story of R.R. Food Products, crafting authentic Bengali tea-time snacks and Taja Chanachur in small brass kadais in Raniganj, West Bengal since 2009. FSSAI Lic. No. 12825023000187.",
   keywords: [
     "About Taja Chanachur",
     "R.R. Food Products Raniganj",
@@ -205,7 +205,7 @@ export default function AboutUsPage() {
               </h2>
             </div>
             <div className="px-4 py-2 rounded-xl bg-gold/15 border border-gold/40 text-gold text-xs font-bold tracking-wider uppercase">
-              FSSAI Lic. No. 12821013000000
+              FSSAI Lic. No. 12825023000187
             </div>
           </div>
 

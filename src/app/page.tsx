@@ -9,7 +9,7 @@ export default function HomePage() {
     "@type": "ItemList",
     name: "Taja Chanachur Full Product Line",
     description:
-      "Handcrafted Bengali chanachur, roasted peanuts, and traditional tea-time snacks by R.R. Food Products in Raniganj, West Bengal since 2009. FSSAI Lic. No. 12821013000000.",
+      "Handcrafted Bengali chanachur, roasted peanuts, and traditional tea-time snacks by R.R. Food Products in Raniganj, West Bengal since 2009. FSSAI Lic. No. 12825023000187.",
     numberOfItems: PRODUCTS_CATALOG.length,
     itemListElement: PRODUCTS_CATALOG.map((product, index) => ({
       "@type": "ListItem",
