@@ -207,6 +207,7 @@ export default function StorySection() {
                   src="/artisan_kadai.jpg"
                   alt="Artisan hand-blending authentic Bengali chanachur in a traditional brass kadai wok over glowing fire embers"
                   fill
+                  loading="lazy"
                   draggable={false}
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="kadai-photo-img object-cover will-change-transform protected-image-layer pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-110"

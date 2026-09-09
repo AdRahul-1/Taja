@@ -9,12 +9,14 @@ import { ArrowRight, MoveHorizontal } from "lucide-react";
 
 export default function IngredientsSection() {
   const [activeIngredient, setActiveIngredient] = useState(INGREDIENTS[0]);
+  const currentActiveIdRef = useRef(INGREDIENTS[0].id);
   const sectionRef = useRef<HTMLElement>(null);
   const cardsWrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const isReducedMotion = useReducedMotion();
 
   const handleSelect = (ing: typeof INGREDIENTS[0]) => {
+    currentActiveIdRef.current = ing.id;
     setActiveIngredient(ing);
     trackEvent({
       name: "ingredient_inspected",
@@ -110,8 +112,10 @@ export default function IngredientsSection() {
                     closestIndex = i;
                   }
                 });
-                if (INGREDIENTS[closestIndex]) {
-                  setActiveIngredient(INGREDIENTS[closestIndex]);
+                const nextIng = INGREDIENTS[closestIndex];
+                if (nextIng && nextIng.id !== currentActiveIdRef.current) {
+                  currentActiveIdRef.current = nextIng.id;
+                  setActiveIngredient(nextIng);
                 }
               },
             },

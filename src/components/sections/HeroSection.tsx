@@ -183,12 +183,13 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
 
           <div className="relative w-full max-w-[320px] sm:max-w-[380px] aspect-[4/5] flex items-center justify-center z-10">
             {/* DOM-First LCP Image (Single, clean, crisp with Anti-Theft Shield) */}
-            <div className="hero-pack-visual relative w-full h-full transform hover:scale-105 transition-transform duration-500 will-change-transform z-20 flex items-center justify-center select-none">
+            <div className="hero-pack-visual relative w-full h-full z-20 flex items-center justify-center select-none group/pack">
               <div
                 className="img-shield"
                 onContextMenu={(e) => e.preventDefault()}
                 aria-hidden="true"
               />
+              <div className="relative w-full h-full flex items-center justify-center transform group-hover/pack:scale-105 transition-transform duration-500">
               <Image
                 src={isJhal ? "/10_rs_jhal_red_new.webp" : "/10_rs_misti_new.webp"}
                 alt={`Taja Chanachur ${isJhal ? "Special Jhal" : "Tak Jhal Misti"} 50g Flagship Pack`}
@@ -201,6 +202,7 @@ export default function HeroSection({ activeFlavor, onFlavorChange }: HeroSectio
                 className="w-full h-full object-contain filter drop-shadow-[0_20px_25px_rgba(0,0,0,0.3)] animate-float protected-image-layer pointer-events-none select-none"
               />
             </div>
+          </div>
 
             {/* Floating Price & Authenticity Badge */}
             <div className="absolute bottom-2 right-2 sm:right-4 z-30 bg-cream-50/95 border border-gold/50 rounded-2xl px-4 py-2.5 backdrop-blur-md shadow-xl flex items-center gap-3">

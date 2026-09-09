@@ -243,8 +243,6 @@ export default function ContactSplitSection() {
           100% Balanced & Level Forms Grid with Authentic Locomotive Scroll Parallax (data-scroll-speed="0.65")
         */}
         <div
-          data-scroll
-          data-scroll-speed="0.65"
           className="contact-forms-grid grid lg:grid-cols-12 gap-8 lg:gap-10 items-stretch will-change-transform"
         >
           {/* Left Column: Consumer Feedback & Retail (Warm Ivory Paper Card) */}

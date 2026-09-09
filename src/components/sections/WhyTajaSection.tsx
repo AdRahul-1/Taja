@@ -99,28 +99,39 @@ export default function WhyTajaSection() {
         );
       });
 
-      // Precision Vertical Pin & Scroll from Point 01 to Point 05 aligning with "Evening."
+      // Precision Vertical Pin & Scroll from Point 01 in center to Point 05 in center
       const items = gsap.utils.toArray<HTMLElement>(".why-point-item");
       if (items.length > 0) {
         const firstItem = items[0];
         const lastItem = items[items.length - 1];
 
-        // Start position: Point 01 starts towards the bottom (70% viewport height)
-        const getStartY = () => {
-          const currentY = Number(gsap.getProperty(pointsTrack, "y")) || 0;
-          const firstRect = firstItem.getBoundingClientRect();
-          return currentY + (window.innerHeight * 0.70 - firstRect.top);
+        // Returns the vertical center of an item relative to pointsTrack's untransformed origin
+        const getItemRelativeCenter = (el: HTMLElement) => {
+          const trackRect = pointsTrack.getBoundingClientRect();
+          const elRect = el.getBoundingClientRect();
+          // Subtracting trackRect.top cancels out any active Y transform on pointsTrack
+          return elRect.top - trackRect.top + el.offsetHeight / 2;
         };
 
-        // End position: Point 05 aligns exactly with the "Evening." baseline before unpinning
+        // Start position: Card 01 centered vertically in the right-side section container
+        const getStartY = () => {
+          const container = pointsTrack.parentElement;
+          const containerHeight = container ? container.clientHeight : window.innerHeight;
+          const card1Center = getItemRelativeCenter(firstItem);
+          return containerHeight / 2 - card1Center;
+        };
+
+        // End position: Card 05 centered vertically in the right-side section container
         const getEndY = () => {
-          if (eveningRef.current) {
-            const currentY = Number(gsap.getProperty(pointsTrack, "y")) || 0;
-            const eveningRect = eveningRef.current.getBoundingClientRect();
-            const lastRect = lastItem.getBoundingClientRect();
-            return currentY + (eveningRect.top - lastRect.top);
-          }
-          return -600;
+          const container = pointsTrack.parentElement;
+          const containerHeight = container ? container.clientHeight : window.innerHeight;
+          const card5Center = getItemRelativeCenter(lastItem);
+          return containerHeight / 2 - card5Center;
+        };
+
+        // Scroll travel distance for comfortable reading and smooth unpinning
+        const getScrollDistance = () => {
+          return Math.max(Math.abs(getStartY() - getEndY()) * 1.25, 800);
         };
 
         // Initialize all SVG icon paths with strokeDashoffset
@@ -128,7 +139,7 @@ export default function WhyTajaSection() {
           const paths = item.querySelectorAll<SVGPathElement>(".kadai-icon-path");
           paths.forEach((path) => {
             if (typeof path.getTotalLength === "function") {
-              const len = path.getTotalLength();
+              const len = path.getTotalLength() || 100;
               gsap.set(path, { strokeDasharray: len + 1, strokeDashoffset: len + 1 });
             }
           });
@@ -139,37 +150,45 @@ export default function WhyTajaSection() {
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: () => `+=${Math.abs(getStartY() - getEndY())}`,
+            end: () => `+=${getScrollDistance()}`,
             pin: true,
-            scrub: true,
+            scrub: 1,
             invalidateOnRefresh: true,
           },
         });
 
-        // Move the points track smoothly
+        // Move pointsTrack smoothly so Card 01 starts in center and Card 05 ends in center
         tl.fromTo(
           pointsTrack,
           { y: getStartY },
-          { y: getEndY, ease: "none", duration: 5 },
+          {
+            y: getEndY,
+            ease: "none",
+            duration: 5,
+          },
           0
         );
 
-        // Animate each SVG icon drawing earlier as each point enters view
-        const totalItems = items.length;
+        // Calculate card positions relative to total span so SVG paths draw right as each card arrives in center
+        const totalSpan = getItemRelativeCenter(lastItem) - getItemRelativeCenter(firstItem);
+
         items.forEach((item, index) => {
           const paths = item.querySelectorAll<SVGPathElement>(".kadai-icon-path");
           const iconBox = item.querySelector<HTMLElement>(".why-icon-box");
-          const startTime = Math.max(0, (index / totalItems) * 3.8);
+
+          const itemRelative = getItemRelativeCenter(item) - getItemRelativeCenter(firstItem);
+          const ratio = totalSpan > 0 ? Math.min(1, Math.max(0, itemRelative / totalSpan)) : index / 4;
+          const startTime = ratio * 4.2;
 
           paths.forEach((path) => {
             tl.to(
               path,
               {
                 strokeDashoffset: 0,
-                duration: 0.5,
+                duration: 0.6,
                 ease: "power2.out",
               },
-              startTime
+              Math.max(0, startTime - 0.1)
             );
           });
 
@@ -177,8 +196,8 @@ export default function WhyTajaSection() {
             tl.fromTo(
               iconBox,
               { scale: 0.85, opacity: 0.5 },
-              { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" },
-              startTime
+              { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.5)" },
+              Math.max(0, startTime - 0.1)
             );
           }
         });
@@ -307,10 +326,10 @@ export default function WhyTajaSection() {
           RIGHT COLUMN (lg:col-span-7):
           Flat Typography-Driven Points with Smooth Scroll on Desktop & Natural Stack on Mobile
         */}
-        <div className="lg:col-span-7 h-auto lg:h-full flex flex-col justify-start lg:justify-center overflow-visible lg:overflow-hidden relative mt-8 lg:mt-0">
+        <div className="lg:col-span-7 h-auto lg:h-full flex flex-col justify-start overflow-visible lg:overflow-hidden relative mt-8 lg:mt-0">
           <div
             ref={pointsTrackRef}
-            className="w-full space-y-12 sm:space-y-16 lg:space-y-20 will-change-transform"
+            className="relative w-full space-y-12 sm:space-y-16 lg:space-y-20 will-change-transform"
           >
             {CURATED_POINTS.map((point) => (
               <div

@@ -19,7 +19,7 @@ export interface IngredientItem {
   subtitleEn: string;
   subtitleBn: string;
   notesEn: string;
-  image: string;
+  image?: string;
   tag: string;
 }
 
@@ -68,65 +68,60 @@ export const STORY_COPY = {
     },
     {
       title: "THE TOSS",
-      lead: "This is where Taja happens.",
-      body: "A handful of sev. A little spice. Roasted peanuts. Then the toss—again and again—until everything comes together.",
+      lead: "Everything meets right here.",
+      body: "Golden sev ribbons and slow-roasted Bengal peanuts tossed hot in the kadai with pure mustard oil.",
     },
     {
-      title: "THE CRUNCH",
-      lead: "One bite. One sound. Done.",
-      body: "That clean, crisp krrrunch is our test. When the batch sounds right, tastes right and feels right, it’s ready for the pack.",
-    },
-    {
-      title: "THE PACK",
-      lead: "Packed for the moment you open it.",
-      body: "We pack every batch with care, keeping the crunch and flavour intact—until you tear it open, grab a handful, and the adda begins.",
+      title: "THE MASALA",
+      lead: "Ground right, blended right.",
+      body: "Our signature blend of sun-dried Guntur chillies, black rock salt, and whole roasted cumin ground fresh.",
     },
   ],
 };
 
 export const DIFFERENTIATORS: DifferentiatorItem[] = [
   {
-    id: "precision-batches",
+    id: "kadai-roast",
     iconName: "kadai",
-    titleEn: "Precision Crafted Batches",
-    titleBn: "আধুনিক প্রযুক্তিতে, ঐতিহ্যের স্বাদ",
-    descEn: "Where modern technology meets Taja tradition. Advanced machinery gives every batch precise roasting, even seasoning, and consistent crunch—so every pack delivers the same unmistakable Taja experience.",
-    descBn: "আধুনিক প্রযুক্তিতে নিয়ন্ত্রিত রোস্টিং ও মশলার নিখুঁত মিশ্রণে খাঁটি স্বাদের নিশ্চয়তা।",
+    titleEn: "Small Kadai Flame Roast",
+    titleBn: "ছোট কড়াইয়ের খাঁটি ভাজা",
+    descEn: "No automated extruder tunnels. Crafted in 25kg batches to control heat, crunch, and delicate aroma.",
+    descBn: "স্বয়ংক্রিয় মেশিন নয়, ছোট কড়াইয়ে যত্ন সহকারে ভাজা হয় যাতে প্রতিটি দানায় থাকে খাঁটি স্বাদ।",
   },
   {
-    id: "spice-heritage",
+    id: "heritage-spices",
     iconName: "leaf",
-    titleEn: "Pure Heritage Spices",
-    titleBn: "খাঁটি মশলার নিজস্ব ঐতিহ্য",
-    descEn: "Whole roasted cumin, black salt, sun-dried chillies, and secret Bengal spice aromatics ground fresh in-house.",
-    descBn: "ঘরোয়া পদ্ধতিতে প্রস্তুত জিরা, বিট নুন ও খাঁটি শুকনো লঙ্কার অতুলনীয় ব্লেন্ড।",
+    titleEn: "Proprietary Spice Blend",
+    titleBn: "নিজস্ব মশলার ঐতিহ্যবাহী মেলবন্ধন",
+    descEn: "Whole roasted cumin, black rock salt, and sun-dried chillies ground fresh daily in Raniganj.",
+    descBn: "গোটা জিরে, বিট নুন এবং রোদে শুকানো লঙ্কা প্রতিদিন টাটকা গুঁড়ো করে মেশানো হয়।",
   },
   {
     id: "mustard-oil",
     iconName: "flame",
-    titleEn: "Mustard Oil Crispness",
-    titleBn: "সরিষার তেলের খাস্তা স্বাদ",
-    descEn: "Fried to a delicate crunch in pure edible oil, delivering the authentic pungent warmth beloved across Bengal.",
-    descBn: "খাঁটি তেলের নিখুঁত তাপে ভাজা মুচমুচে খাস্তা অনুভূতি।",
+    titleEn: "Pure Mustard Oil Warmth",
+    titleBn: "খাঁটি সরিষার তেলের ঝাঁঝালো স্বাদ",
+    descEn: "Fried in pure edible oil delivering the authentic pungent bite Bengal tea connoisseurs demand.",
+    descBn: "সরিষার তেলের আসল ঝাঁঝ যা সন্ধ্যার চায়ের আড্ডাকে করে তোলে আরো জমজমাট।",
   },
   {
-    id: "zero-transfat",
+    id: "nitrogen-lock",
     iconName: "pack",
-    titleEn: "Zero Trans-Fat Lock",
-    titleBn: "জিরো ট্রান্স-ফ্যাট ও ফ্রেশনেস",
-    descEn: "Multi-layer airtight nitrogen barrier packaging locking in crispy freshness from our Raniganj workshop to your tea table.",
-    descBn: "উন্নত প্যাকেজিংয়ে সংরক্ষিত যাতে প্রতিটি কামড়ে থাকে প্রথম দিনের সতেজতা।",
+    titleEn: "Nitrogen Freshness Lock",
+    titleBn: "এয়ারটাইট নাইট্রোজেন সিলিং প্যাক",
+    descEn: "Packed in multi-layer moisture barrier foils to preserve day-one crunch for up to 90 days.",
+    descBn: "আধুনিক নাইট্রোজেন প্যাকেজিং যা আর্দ্রতা রোধ করে এবং চানাচুরকে রাখে ৯০ দিন পর্যন্ত মুচমুচে।",
   },
   {
-    id: "chai-companion",
+    id: "evening-adda",
     iconName: "chai",
-    titleEn: "The Ultimate Tea Partner",
-    titleBn: "সন্ধ্যার এক কাপ চায়ের সঙ্গী",
-    descEn: "Balanced to complement the brisk tannic notes of classic Darjeeling and clay-cup ginger milk tea.",
-    descBn: "ধোঁয়া ওঠা মাটির ভাঁড়ের চা কিংবা লিকার চায়ের সেরা সঙ্গী।",
+    titleEn: "The Soul of Bengali Adda",
+    titleBn: "বাঙালির সন্ধ্যার আড্ডার আসল সঙ্গী",
+    descEn: "Created specifically to complement hot clay cups of tea and soulful neighbourhood conversations.",
+    descBn: "মাটির ভাঁড়ের গরম চা আর বন্ধুদের আড্ডার এক অবিচ্ছেদ্য চিরন্তন সঙ্গী।",
   },
   {
-    id: "raniganj-roots",
+    id: "trusted-heritage",
     iconName: "hand",
     titleEn: "Raniganj Roots Since 2009",
     titleBn: "রানীগঞ্জের ঐতিহ্য, ২০০৯ থেকে",
@@ -143,7 +138,6 @@ export const INGREDIENTS: IngredientItem[] = [
     subtitleEn: "Crunchy & Salt-Glazed",
     subtitleBn: "নোনতা খাস্তা স্বাদ",
     notesEn: "Selected whole kernels slow-roasted to bring out rich nutty oils and a brittle golden crunch.",
-    image: "/ingredients/peanuts.jpg",
     tag: "Protein Rich",
   },
   {
@@ -153,7 +147,6 @@ export const INGREDIENTS: IngredientItem[] = [
     subtitleEn: "Fine Gram Flour Strands",
     subtitleBn: "মুচমুচে সোনালী সেভ",
     notesEn: "Hand-pressed chickpea flour infused with turmeric and ajwain, fried into gossamer crisp ribbons.",
-    image: "/ingredients/besan_sev.jpg",
     tag: "Signature Crunch",
   },
   {
@@ -163,7 +156,6 @@ export const INGREDIENTS: IngredientItem[] = [
     subtitleEn: "Flattened Rice Flakes",
     subtitleBn: "হালকা ভাজা চিঁড়ে",
     notesEn: "Airy, featherlight flattened rice roasted with curry leaves and mustard seeds.",
-    image: "/ingredients/chiwda.jpg",
     tag: "Light & Crispy",
   },
   {
@@ -173,7 +165,6 @@ export const INGREDIENTS: IngredientItem[] = [
     subtitleEn: "Golden Droplet Pearls",
     subtitleBn: "মশলাদার বুন্দিয়া",
     notesEn: "Porous chickpea droplets absorbing black rock salt and tangy amchur notes.",
-    image: "/ingredients/boondi.jpg",
     tag: "Tangy Burst",
   },
   {
@@ -183,7 +174,6 @@ export const INGREDIENTS: IngredientItem[] = [
     subtitleEn: "Fiery Bengal Heat",
     subtitleBn: "ঝাল ও সুবাস",
     notesEn: "Whole dried crimson chillies stone-crushed for deep smoky warmth without harsh bitterness.",
-    image: "/ingredients/dry_chilli.jpg",
     tag: "Aromatic Heat",
   },
   {
@@ -193,7 +183,6 @@ export const INGREDIENTS: IngredientItem[] = [
     subtitleEn: "Golden Split Lentils",
     subtitleBn: "চটপটা নোনতা ডাল",
     notesEn: "Crispy fried yellow split lentils providing a firm, savory toothsome texture in every spoonful.",
-    image: "/ingredients/fried_lentils.jpg",
     tag: "Savory Bite",
   },
   {
@@ -203,7 +192,6 @@ export const INGREDIENTS: IngredientItem[] = [
     subtitleEn: "Crispy Whole Red Lentils",
     subtitleBn: "খাস্তা ভাজা ডাল",
     notesEn: "Whole brown-red lentils fried to an airy crunch with subtle roasted aroma and savory spice dusting.",
-    image: "/ingredients/masoor_dal.jpg",
     tag: "Protein Rich",
   },
   {
@@ -213,7 +201,6 @@ export const INGREDIENTS: IngredientItem[] = [
     subtitleEn: "Spiced Gram Flour Crunch",
     subtitleBn: "মশলাদার গাঁঠিয়া",
     notesEn: "Thick golden chickpea ribbons infused with ajwain and crushed black pepper for a bold savory bite.",
-    image: "/ingredients/besan_gathia.jpg",
     tag: "Bold Crunch",
   },
   {
@@ -223,7 +210,6 @@ export const INGREDIENTS: IngredientItem[] = [
     subtitleEn: "Sweet & Nutty Harmony",
     subtitleBn: "মিষ্টি ও বাদামের মেলবন্ধন",
     notesEn: "Plump sun-kissed golden raisins and crunchy dry-roasted cashews creating a rich royal contrast.",
-    image: "/ingredients/raisins_cashews.jpg",
     tag: "Royal Crunch",
   },
 ];

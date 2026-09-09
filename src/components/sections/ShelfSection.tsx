@@ -223,6 +223,7 @@ export default function ShelfSection() {
                   alt={`${product.title} (${product.flavor}) - Taja Chanachur`}
                   width={340}
                   height={340}
+                  loading="lazy"
                   draggable={false}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-contain w-4/5 h-4/5 filter drop-shadow-[0_15px_15px_rgba(0,0,0,0.25)] group-hover:scale-108 transition-transform duration-500 protected-image-layer pointer-events-none select-none"

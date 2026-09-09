@@ -5,13 +5,34 @@ import dynamic from "next/dynamic";
 import ScrollProvider from "@/components/providers/ScrollProvider";
 import Header from "@/components/layout/Header";
 import HeroSection from "@/components/sections/HeroSection";
-import StorySection from "@/components/sections/StorySection";
-import WhyTajaSection from "@/components/sections/WhyTajaSection";
-import IngredientsSection from "@/components/sections/IngredientsSection";
-import ShelfSection from "@/components/sections/ShelfSection";
-import ContactSplitSection from "@/components/sections/ContactSplitSection";
-import FooterSection from "@/components/sections/FooterSection";
+import SectionSkeleton from "@/components/ui/SectionSkeleton";
 import ContinuousGoldThread from "@/components/ui/ContinuousGoldThread";
+
+// Lazy-load below-the-fold sections with SSR preserved for SEO & zero LCP blocking
+const StorySection = dynamic(() => import("@/components/sections/StorySection"), {
+  ssr: true,
+  loading: () => <SectionSkeleton height="min-h-[80vh]" />,
+});
+const WhyTajaSection = dynamic(() => import("@/components/sections/WhyTajaSection"), {
+  ssr: true,
+  loading: () => <SectionSkeleton height="min-h-[90vh]" />,
+});
+const IngredientsSection = dynamic(() => import("@/components/sections/IngredientsSection"), {
+  ssr: true,
+  loading: () => <SectionSkeleton height="min-h-[90vh]" />,
+});
+const ShelfSection = dynamic(() => import("@/components/sections/ShelfSection"), {
+  ssr: true,
+  loading: () => <SectionSkeleton height="min-h-[90vh]" />,
+});
+const ContactSplitSection = dynamic(() => import("@/components/sections/ContactSplitSection"), {
+  ssr: true,
+  loading: () => <SectionSkeleton height="min-h-[80vh]" />,
+});
+const FooterSection = dynamic(() => import("@/components/sections/FooterSection"), {
+  ssr: true,
+  loading: () => <SectionSkeleton height="min-h-[40vh]" />,
+});
 
 // Asynchronous Three.js WebGL background layer (mounts on idle, never blocks LCP)
 const HeroScene = dynamic(() => import("@/components/canvas/HeroScene"), {
